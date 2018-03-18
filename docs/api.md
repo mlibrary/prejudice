@@ -38,7 +38,7 @@ Spectrum sends json that looks like:
 ### Email messages
 ```json
 {
-  "to": "<10-digit-number>",
+  "to": "<email-address>",
   "<focus_uid>": {
     "base_url": "<base-url-for-records>",
     "records": [
