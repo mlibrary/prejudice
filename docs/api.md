@@ -5,14 +5,15 @@ Used something like:
 ```javascript
 import Prejudice from 'prejudice';
 
-Prejudice.addRecord(...);
-records = Prejudice.listRecords();
-Prejudice.removeRecord(...);
-Prejudice.clearRecords();
+let mrDarcy = new Prejudice();
+mrDarcy.addRecord(...);
+records = mrDarcy.listRecords();
+mrDarcy.removeRecord(...);
+mrDarcy.clearRecords();
 
-Prejudice.act('text', 'target', callback);
-Prejudice.act('email', 'target', callback);
-Prejudice.act('file', 'target', callback);
+mrDarcy.act('text', 'target', callback);
+mrDarcy.act('email', 'target', callback);
+mrDarcy.act('file', 'target', callback);
 
 ```
 
