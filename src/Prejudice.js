@@ -53,4 +53,4 @@ class Prejudice {
   }
 }
 
-export default new Prejudice();
+export default Prejudice;
