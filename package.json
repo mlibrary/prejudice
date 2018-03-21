@@ -1,26 +1,45 @@
 {
   "name": "prejudice",
-  "version": "0.0.1",
-  "description": "Record selection and storage.",
-  "dependencies": {},
+  "version": "1.0.2",
+  "description": "Produce universal library with webpack and es6",
+  "main": "lib/prejudice.js",
+  "scripts": {
+    "build": "webpack --env dev && webpack --env build && npm run test",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "mocha --require babel-core/register --colors ./test/*.spec.js",
+    "test:watch": "mocha --require babel-core/register --colors -w ./test/*.spec.js"
+  },
   "repository": {
-    "url": "git@github.com:mlibrary/prejudice.git",
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/krasimir/webpack-library-starter.git"
   },
-  "author": "bertrama",
-  "maintainers": [
-    {
-      "name": "Albert Bertram",
-      "email": "bertrama@umich.edu"
-    }
+  "keywords": [
+    "webpack",
+    "es6",
+    "starter",
+    "library",
+    "universal",
+    "umd",
+    "commonjs"
   ],
-  "license": "BSD-3-Clause",
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-es2015": "^6.24.1",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11"
+  "author": "Krasimir Tsonev, Albert Bertram",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krasimir/webpack-library-starter/issues"
   },
-  "main": "prejudice.js"
+  "homepage": "https://github.com/krasimir/webpack-library-starter",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.13.1",
+    "eslint-loader": "^1.9.0",
+    "mocha": "^4.0.1",
+    "webpack": "^3.10.0",
+    "yargs": "^10.0.3"
+  }
 }

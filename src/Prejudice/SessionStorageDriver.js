@@ -1,48 +1,56 @@
-'use strict';
+import VariableStorageDriver from './VariableStorageDriver';
 
-class SessionStorageDriver {
-  constuctor() {
-    this.key       = 'Prejudice.SessionStorageDriver';
-    this.observers = [];
-    this.records   = this.read();
-    window.addEventListener('storage', (function (driver) { return function(e) {
-      if (e.storageArea == window.sessionStorage) {
-        driver.read();
-      }
-    };})(this));
-  }
+let exp = VariableStorageDriver;
 
-  notifyObservers() {
-    this.observers.forEach(function(observer) { observer(this.records); }, this);
-  }
+if (typeof global.window !== 'undefined') {
+  class SessionStorageDriver {
+    constructor() {
+      this.key = 'Prejudice.SessionStorageDriver';
+      this.observers = [];
+      this.records = this.read();
+      global.window.addEventListener('storage', (function (driver) {
+        return function (e) {
+          if (e.storageArea === global.window.sessionStorage) {
+            driver.read();
+          }
+        };
+      })(this));
+    }
 
-  read() {
-    this.records = window.sessionStorage.getItem(this.key) || [];
-    this.notifyObservers();
-  }
+    notifyObservers() {
+      this.observers.forEach(function (observer) { observer(this.records); }, this);
+    }
 
-  write() {
-    notifyObservers();
-    return window.sessionStorage.setItem(this.key, this.records);
-  }
+    read() {
+      this.records = global.window.sessionStorage.getItem(this.key) || [];
+      this.notifyObservers();
+    }
 
-  add(record) {
-    this.records.push(record);
-    this.write();
-  }
+    write() {
+      this.notifyObservers();
+      return global.window.sessionStorage.setItem(this.key, this.records);
+    }
 
-  remove(record) {
-    this.records = this.records.filter(function(e) { return e !== record;});
-    this.write();
-  }
+    add(record) {
+      this.records.push(record);
+      this.write();
+    }
 
-  clear(record) {
-    this.records = [];
-    this.write();
-  }
+    remove(record) {
+      this.records = this.records.filter(function (e) { return e !== record;});
+      this.write();
+    }
 
-  list(record) {
-    return this.records;
+    clear(record) {
+      this.records = [];
+      this.write();
+    }
+
+    list(record) {
+      return this.records;
+    }
   }
+  exp = new SessionStorageDriver();
 }
-export default new SessionStorageDriver();
+
+export default exp;

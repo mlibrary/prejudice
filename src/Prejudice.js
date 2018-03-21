@@ -2,22 +2,22 @@
 
 import SessionStorageDriver from './Prejudice/SessionStorageDriver';
 import LocalStorageDriver from './Prejudice/LocalStorageDriver';
+import VariableStorageDriver from './Prejudice/VariableStorageDriver';
 
-import TextAction from './Prejudice/TextAction';
-import EmailAction from './Prejudice/EmailAction';
-import FavoritesAction from './Prejudice/FavoritesAction';
-import FileAction from './Prejudice/FileAction';
+import Action from './Prejudice/Action';
+import Text from './Prejudice/Action/Text';
+import Email from './Prejudice/Action/Email';
+import Favorites from './Prejudice/Action/Favorites';
+import File from './Prejudice/Action/File';
 
-class Prejudice {
+const Prejudice = class Prejudice {
   constructor() {
-    this.SessionStorageDriver = SessionStorageDriver;
     this.recordStorage = SessionStorageDriver;
-    this.LocalStorageDriver = LocalStorageDriver;
     this.actions = {
-      text: TextAction,
-      email: EmailAction,
-      favorites: FavoritesAction,
-      file: FileAction 
+      text: Text,
+      email: Email,
+      favorites: Favorites,
+      file: File
     };
   }
 
@@ -51,6 +51,16 @@ class Prejudice {
   clearRecords() {
     this.recordStorage.clear();
   }
-}
+};
+
+Object.defineProperty(Prejudice, 'SessionStorageDriver', {value: SessionStorageDriver});
+Object.defineProperty(Prejudice, 'LocalStorageDriver', {value: LocalStorageDriver});
+Object.defineProperty(Prejudice, 'VariableStorageDriver', {value: VariableStorageDriver});
+
+Object.defineProperty(Prejudice, 'Action', {value: Action});
+Object.defineProperty(Prejudice.Action, 'Text', {value: Text});
+Object.defineProperty(Prejudice.Action, 'Email', {value: Email});
+Object.defineProperty(Prejudice.Action, 'File', {value: File});
+Object.defineProperty(Prejudice.Action, 'Favorites', {value: Favorites});
 
 export default Prejudice;

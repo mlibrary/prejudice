@@ -1,48 +1,58 @@
 'use strict';
 
-class LocalStorageDriver {
-  constuctor() {
-    this.key     = 'Prejudice.LocalStorageDriver';
-    this.records = this.read();
-    window.addEventListener('storage', (function (driver) { return function(e) {
-      if (e.storageArea == window.localStorage) {
-        driver.read();
-      }
-    };})(this));
-    this.observers = [];
-  }
+import VariableStorageDriver from './VariableStorageDriver';
 
-  notifyObservers() {
-    this.observers.forEach(function (observer) { observer(this.records); }, this);
-  }
+let exp = VariableStorageDriver;
 
-  read() {
-    this.records = window.localStorage.getItem(this.key) || [];
-    this.notifyObservers();
-  }
+if (typeof global.window !== 'undefined') {
+  class LocalStorageDriver {
+    constructor() {
+      this.key = 'Prejudice.LocalStorageDriver';
+      this.observers = [];
+      this.records = this.read();
+      global.window.addEventListener('storage', (function (driver) {
+        return function (e) {
+          if (e.storageArea === window.localStorage) {
+            driver.read();
+          }
+        };
+      })(this));
+    }
 
-  write() {
-    this.notifyObservers();
-    return window.localStorage.setItem(this.key, this.records);
-  }
+    notifyObservers() {
+      this.observers.forEach(function (observer) { observer(this.records); }, this);
+    }
 
-  add(record) {
-    this.records.push(record);
-    this.write();
-  }
+    read() {
+      this.records = global.window.localStorage.getItem(this.key) || [];
+      this.notifyObservers();
+    }
 
-  remove(record) {
-    this.records = this.records.filter(function(e) { return e !== record;});
-    this.write();
-  }
+    write() {
+      this.notifyObservers();
+      return global.window.localStorage.setItem(this.key, this.records);
+    }
 
-  clear(record) {
-    this.records = [];
-    this.write();
-  }
+    add(record) {
+      this.records.push(record);
+      this.write();
+    }
 
-  list(record) {
-    return this.records;
-  }
+    remove(record) {
+      this.records = this.records.filter(function (e) { return e !== record;});
+      this.write();
+    }
+
+    clear(record) {
+      this.records = [];
+      this.write();
+    }
+
+    list(record) {
+      return this.records;
+    }
+  };
+  exp = new LocalStorageDriver();
 }
-export default new LocalStorageDriver();
+
+export default exp;
