@@ -34,8 +34,7 @@ if (typeof global.window !== 'undefined') {
     read() {
       try {
         this.records = JSON.parse(global.window.localStorage.getItem(this.key)) || [];
-      }
-      catch {
+      } catch (e) {
         this.records = [];
       }
       this.notifyObservers();

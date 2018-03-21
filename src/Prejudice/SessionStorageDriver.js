@@ -32,8 +32,7 @@ if (typeof global.window !== 'undefined') {
     read() {
       try {
         this.records = JSON.parse(global.window.sessionStorage.getItem(this.key)) || [];
-      }
-      catch {
+      } catch (e) {
         this.records = [];
       }
       this.notifyObservers();
