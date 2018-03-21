@@ -9,7 +9,7 @@ if (typeof global.window !== 'undefined') {
     constructor() {
       this.key = 'Prejudice.LocalStorageDriver';
       this.observers = [];
-      this.records = this.read();
+      this.read();
       global.window.addEventListener('storage', (function (driver) {
         return function (e) {
           if (e.storageArea === window.localStorage) {
