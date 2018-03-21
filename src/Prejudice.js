@@ -19,36 +19,44 @@ const Prejudice = class Prejudice {
       favorites: Favorites,
       file: File
     };
+
+    this.addObserver = this.addObserver.bind(this);
+    this.setRecordStorage = this.setRecordStorage.bind(this);
+    this.addRecord = this.addRecord.bind(this);
+    this.listRecords = this.listRecords.bind(this);
+    this.removeRecord = this.removeRecord.bind(this);
+    this.act = this.act.bind(this);
+    this.clearRecords = this.clearRecords.bind(this);
   }
 
-  addObserver = (observer) => {
+  addObserver(observer) {
     this.recordStorage.addObserver(observer);
   }
 
-  setRecordStorage = (storage) => {
+  setRecordStorage(storage) {
     this.recordStorage = storage;
     return this;
   }
 
-  addRecord = (record) => {
+  addRecord(record) {
     this.recordStorage.add(record);
     return this;
   }
 
-  listRecords = () => {
+  listRecords() {
     return this.recordStorage.list();
   }
 
-  removeRecord = (record) => {
+  removeRecord(record) {
     this.recordStorage.remove(record);
     return this;
   }
 
-  act = (action, argument, callback) => {
+  act(action, argument, callback) {
     this.actions[action].apply(this.listRecords(), argument, callback);
   }
 
-  clearRecords = () => {
+  clearRecords() {
     this.recordStorage.clear();
   }
 };

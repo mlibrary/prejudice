@@ -15,38 +15,51 @@ if (typeof global.window !== 'undefined') {
           }
         };
       })(this));
+
+      this.notifyObservers = this.notifyObservers.bind(this);
+      this.read = this.read.bind(this);
+      this.write = this.write.bind(this);
+      this.add = this.add.bind(this);
+      this.remove = this.remove.bind(this);
+      this.clear = this.clear.bind(this);
+      this.list = this.list.bind(this);
     }
 
-    notifyObservers = () => {
+    notifyObservers() {
       this.observers.forEach(function (observer) { observer(this.records); }, this);
     }
 
-    read = () => {
-      this.records = global.window.sessionStorage.getItem(this.key) || [];
+    read() {
+      try {
+        this.records = JSON.parse(global.window.sessionStorage.getItem(this.key)) || [];
+      }
+      catch {
+        this.records = [];
+      }
       this.notifyObservers();
     }
 
-    write = () => {
+    write() {
       this.notifyObservers();
-      return global.window.sessionStorage.setItem(this.key, this.records);
+      return global.window.sessionStorage.setItem(this.key, JSON.stringify(this.records));
     }
 
-    add = (record) => {
+    add(record) {
       this.records.push(record);
       this.write();
     }
 
-    remove = (record) => {
+    remove(record) {
       this.records = this.records.filter(function (e) { return e !== record;});
       this.write();
     }
 
-    clear = (record) => {
+    clear(record) {
       this.records = [];
       this.write();
     }
 
-    list = (record) => {
+    list(record) {
       return this.records;
     }
   }
