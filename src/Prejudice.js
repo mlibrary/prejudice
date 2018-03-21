@@ -21,34 +21,34 @@ const Prejudice = class Prejudice {
     };
   }
 
-  addObserver(observer) {
+  addObserver = (observer) => {
     this.recordStorage.addObserver(observer);
   }
 
-  setRecordStorage(storage) {
+  setRecordStorage = (storage) => {
     this.recordStorage = storage;
     return this;
   }
 
-  addRecord(record) {
+  addRecord = (record) => {
     this.recordStorage.add(record);
     return this;
   }
 
-  listRecords() {
+  listRecords = () => {
     return this.recordStorage.list();
   }
 
-  removeRecord(record) {
+  removeRecord = (record) => {
     this.recordStorage.remove(record);
     return this;
   }
 
-  act(action, argument, callback) {
+  act = (action, argument, callback) => {
     this.actions[action].apply(this.listRecords(), argument, callback);
   }
 
-  clearRecords() {
+  clearRecords = () => {
     this.recordStorage.clear();
   }
 };

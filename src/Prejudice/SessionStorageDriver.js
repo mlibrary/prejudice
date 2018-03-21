@@ -17,36 +17,36 @@ if (typeof global.window !== 'undefined') {
       })(this));
     }
 
-    notifyObservers() {
+    notifyObservers = () => {
       this.observers.forEach(function (observer) { observer(this.records); }, this);
     }
 
-    read() {
+    read = () => {
       this.records = global.window.sessionStorage.getItem(this.key) || [];
       this.notifyObservers();
     }
 
-    write() {
+    write = () => {
       this.notifyObservers();
       return global.window.sessionStorage.setItem(this.key, this.records);
     }
 
-    add(record) {
+    add = (record) => {
       this.records.push(record);
       this.write();
     }
 
-    remove(record) {
+    remove = (record) => {
       this.records = this.records.filter(function (e) { return e !== record;});
       this.write();
     }
 
-    clear(record) {
+    clear = (record) => {
       this.records = [];
       this.write();
     }
 
-    list(record) {
+    list = (record) => {
       return this.records;
     }
   }

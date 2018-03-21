@@ -4,23 +4,23 @@ class VariableStorageDriver {
     this.observers = [];
   }
 
-  notifyObservers() {
+  notifyObservers = () => {
     this.observers.forEach(function (observer) { observer(this.records); }, this);
   }
 
-  add(record) {
+  add = (record) => {
     this.records.push(record);
   }
 
-  remove(record) {
+  remove = (record) => {
     this.records = this.records.filter(function (e) { return e !== record;});
   }
 
-  clear(record) {
+  clear = (record) => {
     this.records = [];
   }
 
-  list(record) {
+  list = (record) => {
     return this.records;
   }
 }
