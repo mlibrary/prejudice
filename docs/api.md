@@ -21,6 +21,12 @@ records = mrDarcy.listRecords();
 mrDarcy.removeRecord(...);
 mrDarcy.clearRecords();
 
+mrDarcy.addObserver((function (fitzwilliam, otherThing) {
+  return function(records) {
+    otherThing.records = fitzwilliams.listRecords();
+  }
+})(mrDarcy, otherThing));
+
 mrDarcy.act('text', 'target', callback);
 mrDarcy.act('email', 'target', callback);
 mrDarcy.act('file', 'target', callback);

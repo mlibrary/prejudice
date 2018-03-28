@@ -129,7 +129,12 @@ const Prejudice = class Prejudice {
   }
 
   removeRecord(record) {
-    this.recordStorage.remove(record);
+    record = this.resolveRecord(record);
+    record.renderFull((function (recordStorage) {
+      return function (data) {
+        recordStorage.remove(data);
+      };
+    })(this.recordStorage));
     return this;
   }
 
