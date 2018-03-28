@@ -32,10 +32,12 @@ if (typeof global.window !== 'undefined') {
 
     notifyObservers() {
       this.observers.forEach(function (observer) { observer(this.records); }, this);
+      return this;
     }
 
     addObserver(observer) {
       this.observers.push(observer);
+      return this;
     }
 
     read() {
@@ -45,11 +47,13 @@ if (typeof global.window !== 'undefined') {
         this.records = {};
       }
       this.notifyObservers();
+      return this;
     }
 
     write() {
       this.notifyObservers();
-      return global.window.localStorage.setItem(this.key, JSON.stringify(this.records));
+      global.window.localStorage.setItem(this.key, JSON.stringify(this.records));
+      return this;
     }
 
     add(record) {
@@ -58,6 +62,7 @@ if (typeof global.window !== 'undefined') {
         this.records[record.datastore][record.uid] = record;
         this.write();
       }
+      return this;
     }
 
     remove(record) {
@@ -65,6 +70,7 @@ if (typeof global.window !== 'undefined') {
         delete this.records[record.datastore][record.uid];
         this.write();
       }
+      return this;
     }
 
     clear(datastore) {
@@ -74,6 +80,7 @@ if (typeof global.window !== 'undefined') {
         this.records = {};
       }
       this.write();
+      return this;
     }
 
     list(datastore) {

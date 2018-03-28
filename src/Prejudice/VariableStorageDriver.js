@@ -14,10 +14,12 @@ class VariableStorageDriver {
 
   notifyObservers() {
     this.observers.forEach(function (observer) { observer(this.records); }, this);
+    return this;
   }
 
   addObserver(observer) {
     this.observers.push(observer);
+    return this;
   }
 
   add(record) {
@@ -26,6 +28,7 @@ class VariableStorageDriver {
       this.records[record.datastore][record.uid] = record;
       this.notifyObservers();
     }
+    return this;
   }
 
   remove(record) {
@@ -33,6 +36,7 @@ class VariableStorageDriver {
       delete this.records[record.datastore][record.uid];
       this.notifyObservers();
     }
+    return this;
   }
 
   clear(datastore) {
@@ -42,6 +46,7 @@ class VariableStorageDriver {
       this.records = {};
     }
     this.notifyObservers();
+    return this;
   }
 
   list(datastore) {

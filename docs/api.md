@@ -4,8 +4,18 @@ Used something like:
 
 ```javascript
 import Prejudice from 'prejudice';
+import { Pride } from 'pride';
+import { config } from '../../config'; // Guessing here.
 
-let mrDarcy = new Prejudice();
+let mrDarcy = new Prejudice({
+  recordEngine: Pride,
+  datastores: config.datastores.list,
+  actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+});
+
+// Alternatively values set in the constructor can be set any time.
+mrDarcy.registerRecordEngine(Pride);
+mrDarcy.registerDatastore('mirlyn', 'https://search-staging.www.lib.umich.edu/catalog/record');
 mrDarcy.addRecord(...);
 records = mrDarcy.listRecords();
 mrDarcy.removeRecord(...);

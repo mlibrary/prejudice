@@ -18,7 +18,7 @@ import Pride from './Prejudice/Driver/Record/Pride';
 import Null from './Prejudice/Driver/Record/Null';
 
 const Prejudice = class Prejudice {
-  constructor() {
+  constructor(init) {
     this.recordStorage = SessionStorageDriver;
     this.actions = {
       text: Text,
@@ -37,16 +37,52 @@ const Prejudice = class Prejudice {
     this.clearRecords = this.clearRecords.bind(this);
     this.registerRecordEngine = this.registerRecordEngine.bind(this);
     this.resolveRecord = this.resolveRecord.bind(this);
+    this.registerDatastore = this.registerDatastore.bind(this);
+    this.registerActionBaseUrl = this.registerActionBaseUrl.bind(this);
+
+    if (init.recordEngine) {
+      this.registerRecordEngine(init.recordEngine);
+    }
+
+    if (init.datastores) {
+      init.datastores.forEach(function (datastore) {
+        if (datastore.slug && datastore.uid) {
+          this.datastores[datastore.uid] = [
+            init.baseUrl || global.window.location.origin,
+            datastore.slug,
+            'record'
+          ].join('/');
+        }
+      }, this);
+    }
+
+    if (init.actionBaseUrl) {
+      this.registerActionBaseUrl(init.actionBaseUrl);
+    }
+  }
+
+  registerActionBaseUrl(baseUrl) {
+    Object.values(this.actions).forEach(function (action) {
+      action.registerBaseUrl(baseUrl);
+    }, this);
+    return this;
+  }
+
+  registerDatastore(datastoreUid, datastoreBaseUrl) {
+    this.datastores[datastoreUid] = datastoreBaseUrl;
+    return this;
   }
 
   registerRecordEngine(engine) {
     Prejudice.Driver.Record.UidHash.registerEngine(engine);
     Prejudice.Driver.Record.ReactHash.registerEngine(engine);
     Prejudice.Driver.Record.Pride.registerEngine(engine);
+    return this;
   }
 
   addObserver(observer) {
     this.recordStorage.addObserver(observer);
+    return this;
   }
 
   setRecordStorage(storage) {
@@ -99,10 +135,12 @@ const Prejudice = class Prejudice {
 
   act(action, datastore, argument, callback) {
     this.actions[action].apply(this.listRecords(datastore), argument, callback);
+    return this;
   }
 
   clearRecords(datastore) {
     this.recordStorage.clear(datastore);
+    return this;
   }
 };
 
