@@ -10,6 +10,7 @@ class VariableStorageDriver {
     this.clear = this.clear.bind(this);
     this.list = this.list.bind(this);
     this.count = this.count.bind(this);
+    this.findIndex = this.findIndex.bind(this);
   }
 
   notifyObservers() {
@@ -23,35 +24,53 @@ class VariableStorageDriver {
   }
 
   add(record) {
-    this.records[record.datastore] = this.records[record.datastore] || {};
-    if (!this.records[record.datastore][record.uid]) {
-      this.records[record.datastore][record.uid] = record;
+    const idx = this.findIndex(record);
+
+    if (idx === -1) {
+      this.records[record.datastore] = this.records[record.datastore] || [];
+      this.records[record.datastore].push(record);
       this.notifyObservers();
+      return true;
     }
-    return this;
+    return false;
+  }
+
+  findIndex(record) {
+    if (!this.records[record.datastore]) {
+      return -1;
+    }
+    return this.records[record.datastore].findIndex(function (item) {
+      return item.datastore === record.datastore && item.uid === record.uid;
+    });
   }
 
   remove(record) {
-    if (this.records[record.datastore][record.uid]) {
-      delete this.records[record.datastore][record.uid];
+    const idx = this.findIndex(record);
+
+    if (idx >= 0) {
+      this.records[record.datastore].splice(idx, 1);
       this.notifyObservers();
+      return true;
     }
-    return this;
+    return false;
   }
 
   clear(datastore) {
-    if (datastore) {
+    if (datastore && this.count(datastore) > 0) {
       this.records[datastore] = {};
-    } else {
+      this.notifyObservers();
+      return true;
+    } else if (this.count() > 0) {
       this.records = {};
+      this.notifyObservers();
+      return true;
     }
-    this.notifyObservers();
-    return this;
+    return false;
   }
 
   list(datastore) {
     if (datastore) {
-      return Object.values(this.records[datastore] || {});
+      return this.records[datastore] || [];
     }
     let ret = [];
 
@@ -73,4 +92,6 @@ class VariableStorageDriver {
     return ret;
   }
 }
+
 export default new VariableStorageDriver();
+export { VariableStorageDriver };
