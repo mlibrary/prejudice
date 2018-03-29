@@ -27,9 +27,9 @@ mrDarcy.addObserver((function (fitzwilliam, otherThing) {
   }
 })(mrDarcy, otherThing));
 
-mrDarcy.act('text', 'target', callback);
-mrDarcy.act('email', 'target', callback);
-mrDarcy.act('file', 'target', callback);
+mrDarcy.act('text', 'datastore', '1234567890', callback);
+mrDarcy.act('email', 'datastore', 'example@example.com', callback);
+mrDarcy.act('file', 'datastore', '???', callback);
 
 ```
 
