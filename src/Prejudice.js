@@ -139,7 +139,16 @@ const Prejudice = class Prejudice {
   }
 
   act(action, datastore, argument, callback) {
-    this.actions[action].apply(this.listRecords(datastore), argument, callback);
+    this.actions[action].apply(
+      {
+        to: argument,
+        [datastore]: {
+          records: this.listRecords(datastore).map(item => item.uid),
+          ['base_url']: this.datastores[datastore]
+        }
+      },
+      callback
+    );
     return this;
   }
 
