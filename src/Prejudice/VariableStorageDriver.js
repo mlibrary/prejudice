@@ -57,7 +57,7 @@ class VariableStorageDriver {
 
   clear(datastore) {
     if (datastore && this.count(datastore) > 0) {
-      this.records[datastore] = {};
+      this.records[datastore] = [];
       this.notifyObservers();
       return true;
     } else if (this.count() > 0) {
