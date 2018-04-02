@@ -62,9 +62,10 @@ const Prejudice = class Prejudice {
   }
 
   registerActionBaseUrl(baseUrl) {
-    Object.values(this.actions).forEach(function (action) {
-      action.registerBaseUrl(baseUrl);
-    }, this);
+    this.actions['text'].registerBaseUrl(baseUrl);
+    this.actions['email'].registerBaseUrl(baseUrl);
+    this.actions['file'].registerBaseUrl(baseUrl);
+    this.actions['favorites'].registerBaseUrl(baseUrl);
     return this;
   }
 
