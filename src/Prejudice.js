@@ -19,7 +19,7 @@ import Null from './Prejudice/Driver/Record/Null';
 
 const Prejudice = class Prejudice {
   constructor(init) {
-    this.recordStorage = SessionStorageDriver;
+    this.recordStorage = init.recordStorage || SessionStorageDriver;
     this.actions = {
       text: Text,
       email: Email,

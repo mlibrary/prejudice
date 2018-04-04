@@ -31,6 +31,26 @@ mrDarcy.act('text', 'datastore', '1234567890', callback);
 mrDarcy.act('email', 'datastore', 'example@example.com', callback);
 mrDarcy.act('file', 'datastore', '???', callback);
 
+// Create a new prejudice instance for a single-record action.
+// Use the VariableStorageDriver so that the short-term instance
+// isn't modifying the SessionStorage or LocalStorage.
+msBennet = new Prejudice({
+  datastores: config.datastores.list,
+  recordEngine: Pride,
+  recordStorage: Prejudice.VariableStorageDriver,
+  actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+
+});
+
+msBennet.addObserver((function (elizabeth, otherThing) {
+  return function(records) {
+    otherThing.records = elizabeth.listRecords();
+  }
+})(msBennet, otherThing));
+msBennet.act('text', 'datastore', '1234567890', callback);
+msBennet.act('email', 'datastore', 'example@example.com', callback);
+msBennet.act('file', 'datastore', '???', callback);
+
 ```
 
 ## Prejudice interacting with Spectrum
