@@ -5,34 +5,39 @@ class File extends Action {
     super();
 
     this.path = 'file';
-    this.name = 'action-file-download';
+    this.formId = 'action-file-download';
+    this.targetName = 'action-file-download-target';
 
+    this.ensureForm = this.ensureForm.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.setFormInput = this.setFormInput.bind(this);
+    this.ensureTarget = this.ensureTarget.bind(this);
   }
 
   ensureTarget() {
-    if (document.getElementsByName(this.name).length >= 0) {
+    if (global.document.getElementsByName(this.targetName).length > 0) {
       return this;
     }
     const iframe = global.document.createElement('iframe');
 
     iframe.src = 'about:blank';
-    iframe.name = this.name;
+    iframe.name = this.targetName;
     iframe.style = 'visibility: hidden; display: none;';
     global.document.body.appendChild(iframe);
     return this;
   }
 
   ensureForm() {
-    if (global.document.getElementById(this.name)) {
+    if (global.document.getElementById(this.formId)) {
       return this;
     }
     const form = global.document.createElement('form');
     const input = global.document.createElement('input');
 
-    form.id = this.name;
+    form.id = this.formId;
     form.action = this.getUrl();
     form.method = 'post';
-    form.target = this.name;
+    form.target = this.targetName;
     form.enctype = 'text/plain';
 
     input.type = 'hidden';
@@ -42,14 +47,14 @@ class File extends Action {
   }
 
   setFormInput(data) {
-    const input = global.document.getElementById(this.name).children[0];
+    const input = global.document.getElementById(this.formId).children[0];
 
     input.name = JSON.stringify(data).slice(0, -1) + ',"_":"';
     input.value = '"}';
   }
 
   submitForm() {
-    global.document.getElementById(this.name).submit();
+    global.document.getElementById(this.formId).submit();
   }
 
   apply(data, callback) {
