@@ -11,6 +11,11 @@ class VariableStorageDriver {
     this.list = this.list.bind(this);
     this.count = this.count.bind(this);
     this.findIndex = this.findIndex.bind(this);
+    this.getInstance = this.getInstance.bind(this);
+  }
+
+  getInstance() {
+    return new this.constructor();
   }
 
   notifyObservers() {

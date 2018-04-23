@@ -17,9 +17,11 @@ import ReactHash from './Prejudice/Driver/Record/ReactHash';
 import Pride from './Prejudice/Driver/Record/Pride';
 import Null from './Prejudice/Driver/Record/Null';
 
+import Profile from './Prejudice/Profile';
+
 const Prejudice = class Prejudice {
   constructor(init) {
-    this.recordStorage = init.recordStorage || SessionStorageDriver;
+    this.recordStorage = (init.recordStorage || SessionStorageDriver).getInstance();
     this.actions = {
       text: Text,
       email: Email,
@@ -27,6 +29,8 @@ const Prejudice = class Prejudice {
       file: File
     };
     this.datastores = {};
+
+    this.profile = Profile.getInstance();
 
     this.addObserver = this.addObserver.bind(this);
     this.setRecordStorage = this.setRecordStorage.bind(this);
@@ -39,6 +43,7 @@ const Prejudice = class Prejudice {
     this.resolveRecord = this.resolveRecord.bind(this);
     this.registerDatastore = this.registerDatastore.bind(this);
     this.registerActionBaseUrl = this.registerActionBaseUrl.bind(this);
+    this.addProfileObserver = this.addProfileObserver.bind(this);
 
     if (init.recordEngine) {
       this.registerRecordEngine(init.recordEngine);
@@ -62,6 +67,7 @@ const Prejudice = class Prejudice {
   }
 
   registerActionBaseUrl(baseUrl) {
+    this.profile.registerBaseUrl(baseUrl);
     this.actions['text'].registerBaseUrl(baseUrl);
     this.actions['email'].registerBaseUrl(baseUrl);
     this.actions['file'].registerBaseUrl(baseUrl);
@@ -78,6 +84,11 @@ const Prejudice = class Prejudice {
     Prejudice.Driver.Record.UidHash.registerEngine(engine);
     Prejudice.Driver.Record.ReactHash.registerEngine(engine);
     Prejudice.Driver.Record.Pride.registerEngine(engine);
+    return this;
+  }
+
+  addProfileObserver(observer) {
+    this.profile.addObserver(observer);
     return this;
   }
 
@@ -162,6 +173,8 @@ const Prejudice = class Prejudice {
 Object.defineProperty(Prejudice, 'SessionStorageDriver', {value: SessionStorageDriver});
 Object.defineProperty(Prejudice, 'LocalStorageDriver', {value: LocalStorageDriver});
 Object.defineProperty(Prejudice, 'VariableStorageDriver', {value: VariableStorageDriver});
+
+Object.defineProperty(Prejudice, 'Profile', {value: Profile});
 
 Object.defineProperty(Prejudice, 'Action', {value: Action});
 Object.defineProperty(Prejudice.Action, 'Text', {value: Text});

@@ -20,6 +20,10 @@ class PersistantStorageDriver extends VariableStorageDriver {
     this.write = this.write.bind(this);
   }
 
+  getInstance() {
+    return this;
+  }
+
   read() {
     try {
       this.records = JSON.parse(this.storage.getItem(this.key)) || {};
