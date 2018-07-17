@@ -10,6 +10,8 @@ import Email from './Prejudice/Action/Email';
 import File from './Prejudice/Action/File';
 import Tag from './Prejudice/Action/Tag';
 import Favorite from './Prejudice/Action/Favorite';
+import UnTag from './Prejudice/Action/UnTag';
+import UnFavorite from './Prejudice/Action/UnFavorite';
 
 import Driver from './Prejudice/Driver';
 import Record from './Prejudice/Driver/Record';
@@ -26,8 +28,10 @@ const Prejudice = class Prejudice {
     this.actions = {
       text: Text,
       email: Email,
-      favorite: Favorite,
       tag: Tag,
+      favorite: Favorite,
+      untag: UnTag,
+      unfavorite: UnFavorite,
       file: File
     };
     this.datastores = {};
@@ -184,6 +188,8 @@ Object.defineProperty(Prejudice.Action, 'Email', {value: Email});
 Object.defineProperty(Prejudice.Action, 'File', {value: File});
 Object.defineProperty(Prejudice.Action, 'Tag', {value: Tag});
 Object.defineProperty(Prejudice.Action, 'Favorite', {value: Favorite});
+Object.defineProperty(Prejudice.Action, 'UnTag', {value: UnTag});
+Object.defineProperty(Prejudice.Action, 'UnFavorite', {value: UnFavorite});
 
 Object.defineProperty(Prejudice, 'Driver', {value: Driver});
 Object.defineProperty(Prejudice.Driver, 'Record', {value: Record});
