@@ -30,6 +30,11 @@ mrDarcy.addObserver((function (fitzwilliam, otherThing) {
 mrDarcy.act('text', 'datastore', '1234567890', callback);
 mrDarcy.act('email', 'datastore', 'example@example.com', callback);
 mrDarcy.act('file', 'datastore', '???', callback);
+mrDarcy.act('favorite', 'datastore', '???', callback);
+mrDarcy.act('tag', 'datastore', 'tag string here', callback);
+mrDarcy.act('unfavorite', 'datastore', '???', callback);
+mrDarcy.act('untag', 'datastore', 'tag string here', callback);
+
 
 // Create a new prejudice instance for a single-record action.
 // Use the VariableStorageDriver so that the short-term instance
