@@ -7,8 +7,9 @@ import VariableStorageDriver from './Prejudice/VariableStorageDriver';
 import Action from './Prejudice/Action';
 import Text from './Prejudice/Action/Text';
 import Email from './Prejudice/Action/Email';
-import Favorites from './Prejudice/Action/Favorites';
 import File from './Prejudice/Action/File';
+import Tag from './Prejudice/Action/Tag';
+import Favorite from './Prejudice/Action/Favorite';
 
 import Driver from './Prejudice/Driver';
 import Record from './Prejudice/Driver/Record';
@@ -25,7 +26,8 @@ const Prejudice = class Prejudice {
     this.actions = {
       text: Text,
       email: Email,
-      favorites: Favorites,
+      favorite: Favorite,
+      tag: Tag,
       file: File
     };
     this.datastores = {};
@@ -180,7 +182,8 @@ Object.defineProperty(Prejudice, 'Action', {value: Action});
 Object.defineProperty(Prejudice.Action, 'Text', {value: Text});
 Object.defineProperty(Prejudice.Action, 'Email', {value: Email});
 Object.defineProperty(Prejudice.Action, 'File', {value: File});
-Object.defineProperty(Prejudice.Action, 'Favorites', {value: Favorites});
+Object.defineProperty(Prejudice.Action, 'Tag', {value: Tag});
+Object.defineProperty(Prejudice.Action, 'Favorite', {value: Favorite});
 
 Object.defineProperty(Prejudice, 'Driver', {value: Driver});
 Object.defineProperty(Prejudice.Driver, 'Record', {value: Record});
