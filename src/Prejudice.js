@@ -77,7 +77,10 @@ const Prejudice = class Prejudice {
     this.actions['text'].registerBaseUrl(baseUrl);
     this.actions['email'].registerBaseUrl(baseUrl);
     this.actions['file'].registerBaseUrl(baseUrl);
-    this.actions['favorites'].registerBaseUrl(baseUrl);
+    this.actions['favorite'].registerBaseUrl(baseUrl);
+    this.actions['unfavorite'].registerBaseUrl(baseUrl);
+    this.actions['tag'].registerBaseUrl(baseUrl);
+    this.actions['untag'].registerBaseUrl(baseUrl);
     return this;
   }
 
