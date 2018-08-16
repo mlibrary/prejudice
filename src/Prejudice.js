@@ -21,6 +21,8 @@ import Pride from './Prejudice/Driver/Record/Pride';
 import Null from './Prejudice/Driver/Record/Null';
 
 import Profile from './Prejudice/Profile';
+import FavoritesList from './Prejudice/FavoritesList';
+import FavoritesSuggest from './Prejudice/FavoritesSuggest';
 
 const Prejudice = class Prejudice {
   constructor(init) {
@@ -37,6 +39,8 @@ const Prejudice = class Prejudice {
     this.datastores = {};
 
     this.profile = Profile.getInstance();
+    this.favoritesList = FavoritesList.getInstance();
+    this.favoritesSuggest = FavoritesSuggest.getInstance();
 
     this.addObserver = this.addObserver.bind(this);
     this.setRecordStorage = this.setRecordStorage.bind(this);
@@ -50,6 +54,8 @@ const Prejudice = class Prejudice {
     this.registerDatastore = this.registerDatastore.bind(this);
     this.registerActionBaseUrl = this.registerActionBaseUrl.bind(this);
     this.addProfileObserver = this.addProfileObserver.bind(this);
+    this.addFavoritesListObserver = this.addFavoritesListObserver.bind(this);
+    this.addFavoritesSuggestObserver = this.addFavoritesSuggestObserver.bind(this);
 
     if (init.recordEngine) {
       this.registerRecordEngine(init.recordEngine);
@@ -74,6 +80,8 @@ const Prejudice = class Prejudice {
 
   registerActionBaseUrl(baseUrl) {
     this.profile.registerBaseUrl(baseUrl);
+    this.favoritesList.registerBaseUrl(baseUrl);
+    this.favoritesSuggest.registerBaseUrl(baseUrl);
     this.actions['text'].registerBaseUrl(baseUrl);
     this.actions['email'].registerBaseUrl(baseUrl);
     this.actions['file'].registerBaseUrl(baseUrl);
@@ -98,6 +106,16 @@ const Prejudice = class Prejudice {
 
   addProfileObserver(observer) {
     this.profile.addObserver(observer);
+    return this;
+  }
+
+  addFavoritesListObserver(observer) {
+    this.favoritesList.addObserver(observer);
+    return this;
+  }
+
+  addFavoritesSuggestObserver(observer) {
+    this.favoritesSuggest.addObserver(observer);
     return this;
   }
 
@@ -184,6 +202,8 @@ Object.defineProperty(Prejudice, 'LocalStorageDriver', {value: LocalStorageDrive
 Object.defineProperty(Prejudice, 'VariableStorageDriver', {value: VariableStorageDriver});
 
 Object.defineProperty(Prejudice, 'Profile', {value: Profile});
+Object.defineProperty(Prejudice, 'FavoritesList', {value: FavoritesList});
+Object.defineProperty(Prejudice, 'FavoritesSuggest', {value: FavoritesSuggest});
 
 Object.defineProperty(Prejudice, 'Action', {value: Action});
 Object.defineProperty(Prejudice.Action, 'Text', {value: Text});
