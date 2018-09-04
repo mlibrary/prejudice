@@ -131,6 +131,10 @@ const Prejudice = class Prejudice {
 
   addRecord(record) {
     record = this.resolveRecord(record);
+    if (record.uid && record.datastore) {
+      this.recordStorage.add(record);
+      return this;
+    }
     record.renderFull((function (record, recordStorage) {
       return function (data) {
         if (data.has_holdings) {
@@ -169,6 +173,10 @@ const Prejudice = class Prejudice {
 
   removeRecord(record) {
     record = this.resolveRecord(record);
+    if (record.uid && record.datastore) {
+      this.recordStorage.remove(record);
+      return this;
+    }
     record.renderFull((function (recordStorage) {
       return function (data) {
         recordStorage.remove(data);
