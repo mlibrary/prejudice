@@ -2,12 +2,13 @@ import reqwest from 'reqwest';
 
 const Action = class Action {
   constructor(init) {
-    this.apply = this.apply.bind(this);
     this.baseUrl = (init && init.baseUrl) || '';
+    this.observers = [];
 
     this.apply = this.apply.bind(this);
     this.registerBaseUrl = this.registerBaseUrl.bind(this);
     this.getUrl = this.getUrl.bind(this);
+    this.addObserver = this.addObserver.bind(this);
   }
 
   getUrl() {
@@ -15,6 +16,7 @@ const Action = class Action {
   }
 
   apply(data, callback) {
+    this.observers.forEach(function (observer) { observer(data); }, this);
     reqwest({
       url: this.getUrl(),
       data: JSON.stringify(data),
@@ -31,6 +33,10 @@ const Action = class Action {
   registerBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
     return this;
+  }
+
+  addObserver(observer) {
+    this.observers.push(observer);
   }
 };
 

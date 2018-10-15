@@ -17,6 +17,7 @@ class FavoritesSuggest {
     this.getUrl = this.getUrl.bind(this);
     this.setInterval = this.setInterval.bind(this);
     this.getInstance = this.getInstance.bind(this);
+    this.add = this.add.bind(this);
   }
 
   getInstance() {
@@ -92,9 +93,37 @@ class FavoritesSuggest {
     }
     return this;
   }
+
   registerBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();
+    return this;
+  }
+
+  add(data) {
+    const tags = Array.isArray(data.to) ? data.to : [data.to];
+    var dirty = false;
+
+    if (!this.last.courses || !this.last.recent) {
+      return this;
+    }
+
+    tags.forEach(function (tag) {
+      if (this.last.recent.find(function (element) { return element === tag; })) {
+        return this;
+      }
+      if (this.last.courses.find(function (element) { return element === tag; })) {
+        return this;
+      }
+      dirty = true;
+      this.last.recent.push(tag);
+      return this;
+    }, this);
+
+    if (dirty) {
+      this.notifyObservers();
+    }
+
     return this;
   }
 }

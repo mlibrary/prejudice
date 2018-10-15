@@ -3,7 +3,7 @@ import reqwest from 'reqwest';
 class FavoritesList {
 
   constructor() {
-    this.last = {};
+    this.last = [];
     this.baseUrl = null;
     this.observers = [];
     this.interval = null;
@@ -17,6 +17,10 @@ class FavoritesList {
     this.getUrl = this.getUrl.bind(this);
     this.setInterval = this.setInterval.bind(this);
     this.getInstance = this.getInstance.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
+    this.removeFavorite = this.removeFavorite.bind(this);
+    this.addTag = this.addTag.bind(this);
+    this.removeTag = this.removeTag.bind(this);
   }
 
   getInstance() {
@@ -86,7 +90,7 @@ class FavoritesList {
 
   startup() {
     if (!this.interval && this.baseUrl) {
-      this.last = {};
+      this.last = [];
       this.update();
       this.setInterval();
     }
@@ -96,6 +100,157 @@ class FavoritesList {
   registerBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();
+    return this;
+  }
+
+  favoritedItem(datastore, id, tag) {
+    const ret = {};
+
+    if (datastore === 'mirlyn') {
+      ret.id = ['http://mirlyn.lib.umich.edu/Record/' + id];
+      ret.tags = ['mirlyn-favorite'];
+      ret.type = 'mirlyn';
+    } else if (datastore === 'articles') {
+      ret.id = ['http://www.lib.umich.edu/articles/details/' + id];
+      ret.tags = ['articles-favorite'];
+      ret.type = 'article';
+    } else if (datastore === 'databases') {
+      ret.id = ['http://www.lib.umich.edu/node/' + id];
+      ret.tags = ['databases-favorite'];
+      ret.type = 'database';
+    } else if (datastore === 'journals') {
+      ret.id = ['http://mirlyn.lib.umich.edu/Record/' + id];
+      ret.tags = ['journals-favorite'];
+      ret.type = 'journal';
+    } else if (datastore === 'website') {
+      ret.id = [id];
+      ret.tags = ['website-favorite'];
+      ret.type = 'website';
+    }
+    return ret;
+  }
+
+  addFavorite(data) {
+    var dirty = false;
+
+    Object.keys(data).forEach(function (datastore) {
+      if (!data[datastore] || !Array.isArray(data[datastore].records)) {
+        return;
+      }
+      (data[datastore].records || []).forEach(function (id) {
+        const record = this.favoritedItem(datastore, id);
+        const existing = this.last.find(function (element) {
+          return element.id[0] === record.id[0];
+        });
+
+        if (!existing) {
+          dirty = true;
+          this.last.push(record);
+        }
+      }, this);
+    }, this);
+
+    if (dirty) {
+      this.notifyObservers();
+    }
+
+    return this;
+  }
+
+  removeFavorite(data) {
+    var dirty = false;
+
+    Object.keys(data).forEach(function (datastore) {
+      if (!data[datastore] || !Array.isArray(data[datastore].records)) {
+        return;
+      }
+      (data[datastore].records || []).forEach(function (id) {
+        const record = this.favoritedItem(datastore, id);
+        const index = this.last.findIndex(function (element) {
+          return element.id[0] === record.id[0];
+        });
+
+        if (index >= 0) {
+          dirty = true;
+          this.last = this.last.slice(0, index) +
+            this.last.slice(index + 1, this.last.length);
+        }
+      }, this);
+    }, this);
+
+    if (dirty) {
+      this.notifyObservers();
+    }
+
+    return this;
+  }
+
+  addTag(data) {
+    const tags = Array.isArray(data.to) ? data.to : [data.to];
+    var dirty = false;
+
+    Object.keys(data).forEach(function (datastore) {
+      if (!data[datastore] || !Array.isArray(data[datastore].records)) {
+        return;
+      }
+      (data[datastore].records || []).forEach(function (id) {
+        const record = this.favoritedItem(datastore, id);
+        const existing = this.last.find(function (element) {
+          return element.id[0] === record.id[0];
+        });
+
+        if (!existing) {
+          dirty = true;
+          record.tags = tags;
+          this.last.push(record);
+        } else {
+          dirty = true;
+          existing.tags = (existing.tags || []) + tags;
+        }
+      }, this);
+    }, this);
+
+    if (dirty) {
+      this.notifyObservers();
+    }
+
+    return this;
+  }
+
+  removeTag(data) {
+    const tags = Array.isArray(data.to) ? data.to : [data.to];
+    var dirty = false;
+
+    Object.keys(data).forEach(function (datastore) {
+      if (!data[datastore] || !Array.isArray(data[datastore].records)) {
+        return;
+      }
+      (data[datastore].records || []).forEach(function (id) {
+        const record = this.favoritedItem(datastore, id);
+        const existing = this.last.find(function (element) {
+          return element.id[0] === record.id[0];
+        });
+
+        if (existing) {
+          tags.forEach(function (tag) {
+            const index = existing.tags.findIndex(function (element) {
+              return element === tag;
+            });
+
+            if (index >= 0) {
+              dirty = true;
+              existing.tags = existing.tags.slice(0, index) +
+                existing.tags.slice(index + 1, existing.tags.length);
+            }
+          });
+        }
+      }, this);
+    }, this);
+
+    if (dirty) {
+      this.notifyObservers();
+    }
+
     return this;
   }
 }

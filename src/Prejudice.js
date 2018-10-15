@@ -56,6 +56,10 @@ const Prejudice = class Prejudice {
     this.addProfileObserver = this.addProfileObserver.bind(this);
     this.addFavoritesListObserver = this.addFavoritesListObserver.bind(this);
     this.addFavoritesSuggestObserver = this.addFavoritesSuggestObserver.bind(this);
+    this.favoriteAdded = this.favoriteAdded.bind(this);
+    this.favoriteRemoved = this.favoriteRemoved(this);
+    this.tagAdded = this.tagAdded.bind(this);
+    this.tagRemoved = this.tagRemoved.bind(this);
 
     if (init.recordEngine) {
       this.registerRecordEngine(init.recordEngine);
@@ -76,6 +80,28 @@ const Prejudice = class Prejudice {
     if (init.actionBaseUrl) {
       this.registerActionBaseUrl(init.actionBaseUrl);
     }
+
+    this.actions.favorite.addObserver(this.favoriteAdded);
+    this.actions.unfavorite.addObserver(this.favoriteRemoved);
+    this.actions.tag.addObserver(this.tagAdded);
+    this.actions.untag.addObserver(this.tagRemoved);
+  }
+
+  favoriteAdded(data) {
+    this.favoritesList.addFavorite(data);
+  }
+
+  favoriteRemoved(data) {
+    this.favoritesList.removeFavorite(data);
+  }
+
+  tagAdded(data) {
+    this.favoritesList.addTag(data);
+    this.favoritesSuggest.add(data);
+  }
+
+  tagRemoved(data) {
+    this.favoritesList.removeTag(data);
   }
 
   registerActionBaseUrl(baseUrl) {
