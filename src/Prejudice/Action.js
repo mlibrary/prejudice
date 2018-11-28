@@ -16,7 +16,14 @@ const Action = class Action {
   }
 
   apply(data, callback) {
-    this.observers.forEach(function (observer) { observer(data); }, this);
+    this.observers.forEach(
+      function (observer) {
+        if (typeof observer === 'function') {
+          observer(data);
+        }
+      },
+      this
+    );
     reqwest({
       url: this.getUrl(),
       data: JSON.stringify(data),

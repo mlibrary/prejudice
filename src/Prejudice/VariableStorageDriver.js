@@ -19,7 +19,14 @@ class VariableStorageDriver {
   }
 
   notifyObservers() {
-    this.observers.forEach(function (observer) { observer(this.records); }, this);
+    this.observers.forEach(
+      function (observer) {
+        if (typeof observer === 'function') {
+          observer(this.records);
+        }
+      },
+      this
+    );
     return this;
   }
 

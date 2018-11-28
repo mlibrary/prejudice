@@ -38,7 +38,9 @@ class FavoritesSuggest {
 
   notifyObservers() {
     this.observers.forEach(function (observer) {
-      observer(this.last);
+      if (typeof observer === 'function') {
+        observer(this.last);
+      }
     }, this);
   }
 
