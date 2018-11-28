@@ -205,7 +205,7 @@ class FavoritesList {
           this.last.push(record);
         } else {
           dirty = true;
-          existing.tags = (existing.tags || []) + tags;
+          existing.tags = (existing.tags || []).concat(tags);
         }
       }, this);
     }, this);
