@@ -172,8 +172,9 @@ class FavoritesList {
 
         if (index >= 0) {
           dirty = true;
-          this.last = this.last.slice(0, index) +
-            this.last.slice(index + 1, this.last.length);
+          this.last = this.last.slice(0, index).concat(
+            this.last.slice(index + 1, this.last.length)
+          );
         }
       }, this);
     }, this);
@@ -239,8 +240,9 @@ class FavoritesList {
 
             if (index >= 0) {
               dirty = true;
-              existing.tags = existing.tags.slice(0, index) +
-                existing.tags.slice(index + 1, existing.tags.length);
+              existing.tags = existing.tags.slice(0, index).concat(
+                existing.tags.slice(index + 1, existing.tags.length)
+              );
             }
           });
         }
