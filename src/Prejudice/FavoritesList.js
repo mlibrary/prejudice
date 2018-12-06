@@ -112,7 +112,7 @@ class FavoritesList {
       ret.id = ['http://mirlyn.lib.umich.edu/Record/' + id];
       ret.tags = ['mirlyn-favorite'];
       ret.type = 'mirlyn';
-    } else if (datastore === 'articles') {
+    } else if (datastore === 'articlesplus') {
       ret.id = ['http://www.lib.umich.edu/articles/details/' + id];
       ret.tags = ['articles-favorite'];
       ret.type = 'article';
@@ -128,6 +128,10 @@ class FavoritesList {
       ret.id = [id];
       ret.tags = ['website-favorite'];
       ret.type = 'website';
+    } else {
+      ret.id = [id];
+      ret.tags = [ datastore + '-favorite' ];
+      ret.type = datastore;
     }
     return ret;
   }
