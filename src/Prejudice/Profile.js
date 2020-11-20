@@ -1,4 +1,5 @@
 import reqwest from 'reqwest';
+import IdleTimer from '@certsy/universal-idle-timeout';
 
 class Profile {
 
@@ -7,6 +8,7 @@ class Profile {
     this.baseUrl = null;
     this.observers = [];
     this.interval = null;
+    this.idleTimer = null;
     this.intervalDuration = 300000;
 
     this.registerBaseUrl = this.registerBaseUrl.bind(this);
@@ -17,6 +19,15 @@ class Profile {
     this.getUrl = this.getUrl.bind(this);
     this.setInterval = this.setInterval.bind(this);
     this.getInstance = this.getInstance.bind(this);
+    this.setIdleTimer = this.setIdleTimer.bind(this);
+  }
+
+  setIdleTimer() {
+    this.idleTimer = new IdleTimer(
+      () => { },
+      {element: document, timeout: this.intervalDuration / 2}
+    );
+    return this;
   }
 
   getInstance() {
@@ -44,6 +55,9 @@ class Profile {
   }
 
   update() {
+    if (this.idleTimer && this.idleTimer.isIdle) {
+      return this.setIdleTimer();
+    }
     if (this.baseUrl && this.observers.length > 0) {
       const callback = (function (profile) {
         return function (data) {
@@ -89,6 +103,7 @@ class Profile {
   startup() {
     if (!this.interval && this.baseUrl && this.observers.length > 0) {
       this.last = {};
+      this.setIdleTimer();
       this.update();
       this.setInterval();
     }

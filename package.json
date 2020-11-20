@@ -44,6 +44,7 @@
     "yargs": "^10.0.3"
   },
   "dependencies": {
+    "@certsy/universal-idle-timeout": "^0.2.9",
     "reqwest": "^2.0.5",
     "xhr2": "^0.1.4"
   }
