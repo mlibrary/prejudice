@@ -24,6 +24,8 @@ import Profile from './Prejudice/Profile';
 import FavoritesList from './Prejudice/FavoritesList';
 import FavoritesSuggest from './Prejudice/FavoritesSuggest';
 
+import IdleTimeout from './Prejudice/IdleTimeout';
+
 const Prejudice = class Prejudice {
   constructor(init) {
     this.recordStorage = (init.recordStorage || SessionStorageDriver).getInstance();
@@ -41,6 +43,8 @@ const Prejudice = class Prejudice {
     this.profile = Profile.getInstance();
     this.favoritesList = FavoritesList.getInstance();
     this.favoritesSuggest = FavoritesSuggest.getInstance();
+
+    this.setIdleTimer = IdleTimeout.setIdleTimer();
 
     this.addObserver = this.addObserver.bind(this);
     this.setRecordStorage = this.setRecordStorage.bind(this);
@@ -238,6 +242,8 @@ Object.defineProperty(Prejudice, 'VariableStorageDriver', {value: VariableStorag
 Object.defineProperty(Prejudice, 'Profile', {value: Profile});
 Object.defineProperty(Prejudice, 'FavoritesList', {value: FavoritesList});
 Object.defineProperty(Prejudice, 'FavoritesSuggest', {value: FavoritesSuggest});
+
+Object.defineProperty(Prejudice, 'IdleTimeout', {value: IdleTimeout});
 
 Object.defineProperty(Prejudice, 'Action', {value: Action});
 Object.defineProperty(Prejudice.Action, 'Text', {value: Text});
