@@ -1,5 +1,5 @@
 import reqwest from 'reqwest';
-import idleTimeout from 'idle-timeout';
+import IdleTimeout from './IdleTimeout';
 
 class Profile {
 
@@ -8,8 +8,8 @@ class Profile {
     this.baseUrl = null;
     this.observers = [];
     this.interval = null;
-    this.idleTimer = null;
     this.intervalDuration = 300000;
+    this.idleDetection = IdleTimeout;
 
     this.registerBaseUrl = this.registerBaseUrl.bind(this);
     this.addObserver = this.addObserver.bind(this);
@@ -19,18 +19,6 @@ class Profile {
     this.getUrl = this.getUrl.bind(this);
     this.setInterval = this.setInterval.bind(this);
     this.getInstance = this.getInstance.bind(this);
-    this.setIdleTimer = this.setIdleTimer.bind(this);
-  }
-
-  setIdleTimer() {
-    this.idleTimer = idleTimeout(
-      () => {},
-      {
-        element: document,
-        timeout: this.intervalDuration / 2
-      }
-    );
-    return this;
   }
 
   getInstance() {
@@ -58,8 +46,8 @@ class Profile {
   }
 
   update() {
-    if (this.idleTimer && this.idleTimer.isIdle) {
-      return this.setIdleTimer();
+    if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
+      return this.idleDetection.setIdleTimer();
     }
     if (this.baseUrl && this.observers.length > 0) {
       const callback = (function (profile) {
@@ -106,7 +94,7 @@ class Profile {
   startup() {
     if (!this.interval && this.baseUrl && this.observers.length > 0) {
       this.last = {};
-      this.setIdleTimer();
+      this.idleDetection.setIdleTimer();
       this.update();
       this.setInterval();
     }
