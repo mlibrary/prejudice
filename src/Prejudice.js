@@ -44,8 +44,6 @@ const Prejudice = class Prejudice {
     this.favoritesList = FavoritesList.getInstance();
     this.favoritesSuggest = FavoritesSuggest.getInstance();
 
-    this.setIdleTimer = IdleTimeout.setIdleTimer();
-
     this.addObserver = this.addObserver.bind(this);
     this.setRecordStorage = this.setRecordStorage.bind(this);
     this.addRecord = this.addRecord.bind(this);
