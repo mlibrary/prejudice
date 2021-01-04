@@ -48,7 +48,8 @@ class FavoritesSuggest {
 
   update() {
     if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
-      return this.idleDetection.setIdleTimer();
+      this.idleDetection.setIdleTimer();
+      return this;
     }
     if (this.baseUrl) {
       const callback = (function (profile) {

@@ -47,7 +47,8 @@ class Profile {
 
   update() {
     if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
-      return this.idleDetection.setIdleTimer();
+      this.idleDetection.setIdleTimer();
+      return this;
     }
     if (this.baseUrl && this.observers.length > 0) {
       const callback = (function (profile) {
