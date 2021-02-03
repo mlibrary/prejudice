@@ -1,4 +1,5 @@
 import reqwest from 'reqwest';
+import IdleTimeout from './IdleTimeout';
 
 class Profile {
 
@@ -8,6 +9,7 @@ class Profile {
     this.observers = [];
     this.interval = null;
     this.intervalDuration = 300000;
+    this.idleDetection = IdleTimeout;
 
     this.registerBaseUrl = this.registerBaseUrl.bind(this);
     this.addObserver = this.addObserver.bind(this);
@@ -44,6 +46,10 @@ class Profile {
   }
 
   update() {
+    if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
+      this.idleDetection.setIdleTimer();
+      return this;
+    }
     if (this.baseUrl && this.observers.length > 0) {
       const callback = (function (profile) {
         return function (data) {
@@ -89,11 +95,13 @@ class Profile {
   startup() {
     if (!this.interval && this.baseUrl && this.observers.length > 0) {
       this.last = {};
+      this.idleDetection.setIdleTimer();
       this.update();
       this.setInterval();
     }
     return this;
   }
+
   registerBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();

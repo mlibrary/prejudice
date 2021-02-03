@@ -1,4 +1,5 @@
 import reqwest from 'reqwest';
+import IdleTimeout from './IdleTimeout';
 
 class FavoritesSuggest {
 
@@ -8,6 +9,7 @@ class FavoritesSuggest {
     this.observers = [];
     this.interval = null;
     this.intervalDuration = 300000;
+    this.idleDetection = IdleTimeout;
 
     this.registerBaseUrl = this.registerBaseUrl.bind(this);
     this.addObserver = this.addObserver.bind(this);
@@ -45,6 +47,10 @@ class FavoritesSuggest {
   }
 
   update() {
+    if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
+      this.idleDetection.setIdleTimer();
+      return this;
+    }
     if (this.baseUrl) {
       const callback = (function (profile) {
         return function (data) {
@@ -90,6 +96,7 @@ class FavoritesSuggest {
   startup() {
     if (!this.interval && this.baseUrl) {
       this.last = {};
+      this.idleDetection.setIdleTimer();
       this.update();
       this.setInterval();
     }
