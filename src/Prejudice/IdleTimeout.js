@@ -11,7 +11,7 @@ class IdleTimeout {
       () => {},
       {
         element: document,
-        timeout: 150000
+        timeout: 3600000
       }
     );
     return this;
