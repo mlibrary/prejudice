@@ -114,21 +114,34 @@ class FavoritesList {
 
   favoritedItem(datastore, id, tag) {
     const ret = {};
+    const baseUrl = 'https://search.lib.umich.edu';
 
     if (datastore === 'mirlyn') {
-      ret.id = ['http://mirlyn.lib.umich.edu/Record/' + id];
+      ret.id = [
+        'http://mirlyn.lib.umich.edu/Record/' + id,
+        `${baseUrl}/catalog/record/${id}`
+      ];
       ret.tags = ['mirlyn-favorite'];
       ret.type = 'mirlyn';
-    } else if (datastore === 'articlesplus') {
-      ret.id = ['http://www.lib.umich.edu/articles/details/' + id];
+    } else if (datastore === 'articles') {
+      ret.id = [
+        'http://www.lib.umich.edu/articles/details/' + id,
+        `${baseUrl}/articles/record/${id}`
+      ];
       ret.tags = ['articles-favorite'];
       ret.type = 'article';
     } else if (datastore === 'databases') {
-      ret.id = ['http://www.lib.umich.edu/node/' + id];
+      ret.id = [
+        'http://www.lib.umich.edu/node/' + id,
+        `${baseUrl}/databases/record/${id}`
+      ];
       ret.tags = ['databases-favorite'];
       ret.type = 'database';
-    } else if (datastore === 'journals') {
-      ret.id = ['http://mirlyn.lib.umich.edu/Record/' + id];
+    } else if (datastore === 'onlinejournals') {
+      ret.id = [
+        'http://mirlyn.lib.umich.edu/Record/' + id,
+        `${baseUrl}/onlinejournals/record/${id}`
+      ];
       ret.tags = ['journals-favorite'];
       ret.type = 'journal';
     } else if (datastore === 'website') {
