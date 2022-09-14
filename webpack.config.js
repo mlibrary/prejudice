@@ -7,10 +7,10 @@ let libraryName = 'prejudice';
 module.exports = (env, argv) => {
   const production = argv.mode === 'production';
   return {
-    entry: __dirname + '/src/Prejudice.js',
+    entry: `${__dirname}/src/Prejudice.js`,
     devtool: 'source-map',
     output: {
-      path: __dirname + '/lib',
+      path: `${__dirname}/lib`,
       filename: `${libraryName}${production ? '.min.js' : '.js'}`,
       library: libraryName,
       libraryTarget: 'umd',
