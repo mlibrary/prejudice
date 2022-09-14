@@ -1,7 +1,7 @@
 import Action from '../Action';
 
 class Tag extends Action {
-  constructor() {
+  constructor () {
     super();
     this.path = 'tag';
   }

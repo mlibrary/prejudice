@@ -1,14 +1,16 @@
 import idleTimeout from 'idle-timeout';
 
 class IdleTimeout {
-  constructor() {
+  constructor () {
     this.idleTimer = null;
     this.setIdleTimer = this.setIdleTimer.bind(this);
   }
 
-  setIdleTimer() {
+  setIdleTimer () {
     this.idleTimer = idleTimeout(
-      () => {},
+      () => {
+        //
+      },
       {
         element: document,
         timeout: 3600000

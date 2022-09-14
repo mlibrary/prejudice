@@ -1,5 +1,5 @@
 class VariableStorageDriver {
-  constructor() {
+  constructor () {
     this.records = {};
     this.observers = [];
 
@@ -14,11 +14,11 @@ class VariableStorageDriver {
     this.getInstance = this.getInstance.bind(this);
   }
 
-  getInstance() {
+  getInstance () {
     return new this.constructor();
   }
 
-  notifyObservers() {
+  notifyObservers () {
     this.observers.forEach(
       function (observer) {
         if (typeof observer === 'function') {
@@ -30,12 +30,12 @@ class VariableStorageDriver {
     return this;
   }
 
-  addObserver(observer) {
+  addObserver (observer) {
     this.observers.push(observer);
     return this;
   }
 
-  add(record) {
+  add (record) {
     const idx = this.findIndex(record);
 
     if (idx === -1) {
@@ -47,7 +47,7 @@ class VariableStorageDriver {
     return false;
   }
 
-  findIndex(record) {
+  findIndex (record) {
     if (!this.records[record.datastore]) {
       return -1;
     }
@@ -56,7 +56,7 @@ class VariableStorageDriver {
     });
   }
 
-  remove(record) {
+  remove (record) {
     const idx = this.findIndex(record);
 
     if (idx >= 0) {
@@ -67,7 +67,7 @@ class VariableStorageDriver {
     return false;
   }
 
-  clear(datastore) {
+  clear (datastore) {
     if (datastore && this.count(datastore) > 0) {
       this.records[datastore] = [];
       this.notifyObservers();
@@ -80,7 +80,7 @@ class VariableStorageDriver {
     return false;
   }
 
-  list(datastore) {
+  list (datastore) {
     if (datastore) {
       return this.records[datastore] || [];
     }
@@ -92,7 +92,7 @@ class VariableStorageDriver {
     return ret;
   }
 
-  count(datastore) {
+  count (datastore) {
     if (datastore) {
       return this.list(datastore).length;
     }

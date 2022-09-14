@@ -1,7 +1,7 @@
 import Action from '../Action';
 
 class Favorite extends Action {
-  constructor() {
+  constructor () {
     super();
     this.path = 'favorite';
   }

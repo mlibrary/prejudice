@@ -1,9 +1,9 @@
 class Null {
-  match(data) {
+  match (data) {
     return false;
   }
 
-  dataToRecord() {
+  dataToRecord () {
     return this;
   }
 }

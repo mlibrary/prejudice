@@ -2,8 +2,7 @@ import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
 
 class FavoritesSuggest {
-
-  constructor() {
+  constructor () {
     this.last = {};
     this.baseUrl = null;
     this.observers = [];
@@ -22,11 +21,11 @@ class FavoritesSuggest {
     this.add = this.add.bind(this);
   }
 
-  getInstance() {
+  getInstance () {
     return this;
   }
 
-  setInterval() {
+  setInterval () {
     if (this.interval) {
       return this;
     }
@@ -38,7 +37,7 @@ class FavoritesSuggest {
     return this;
   }
 
-  notifyObservers() {
+  notifyObservers () {
     this.observers.forEach(function (observer) {
       if (typeof observer === 'function') {
         observer(this.last);
@@ -46,7 +45,7 @@ class FavoritesSuggest {
     }, this);
   }
 
-  update() {
+  update () {
     if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
       this.idleDetection.setIdleTimer();
       return this;
@@ -71,7 +70,7 @@ class FavoritesSuggest {
     return this;
   }
 
-  handleData(data) {
+  handleData (data) {
     if (JSON.stringify(this.last) !== JSON.stringify(data)) {
       this.last = data;
       this.notifyObservers();
@@ -79,21 +78,21 @@ class FavoritesSuggest {
     return this;
   }
 
-  getUrl() {
+  getUrl () {
     if (this.baseUrl) {
       return [this.baseUrl, 'profile', 'favorites', 'suggest'].join('/');
     }
     return null;
   }
 
-  addObserver(observer) {
+  addObserver (observer) {
     observer(this.last);
     this.observers.push(observer);
     this.startup();
     return this;
   }
 
-  startup() {
+  startup () {
     if (!this.interval && this.baseUrl) {
       this.last = {};
       this.idleDetection.setIdleTimer();
@@ -103,25 +102,29 @@ class FavoritesSuggest {
     return this;
   }
 
-  registerBaseUrl(baseUrl) {
+  registerBaseUrl (baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();
     return this;
   }
 
-  add(data) {
+  add (data) {
     const tags = Array.isArray(data.to) ? data.to : [data.to];
-    var dirty = false;
+    let dirty = false;
 
     if (!this.last.courses || !this.last.recent) {
       return this;
     }
 
     tags.forEach(function (tag) {
-      if (this.last.recent.find(function (element) { return element === tag; })) {
+      if (this.last.recent.find(function (element) {
+        return element === tag;
+      })) {
         return this;
       }
-      if (this.last.courses.find(function (element) { return element === tag; })) {
+      if (this.last.courses.find(function (element) {
+        return element === tag;
+      })) {
         return this;
       }
       dirty = true;
