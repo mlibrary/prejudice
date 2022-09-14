@@ -1,17 +1,22 @@
 /* global __dirname, require, module*/
 
 const webpack = require('webpack');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 let libraryName = 'prejudice';
 
-let plugins = [], outputFile;
+let plugins = [new ESLintPlugin({
+    extensions: ['js', 'jsx'],
+    exclude: ['/node_modules/']
+  })], outputFile;
+
+let minimize = false;
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  minimize = true;
   outputFile = libraryName + '.min.js';
 } else {
   outputFile = libraryName + '.js';
@@ -40,10 +45,11 @@ const config = {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js']
   },
-  plugins: [...plugins, new ESLintPlugin({
-    extensions: ['js', 'jsx'],
-    exclude: ['/node_modules/']
-  })]
+  optimization: {
+    minimize: minimize,
+    minimizer: [new TerserPlugin()],
+  },
+  plugins: plugins
 };
 
 module.exports = config;
