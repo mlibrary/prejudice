@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/krasimir/webpack-library-starter",
   "devDependencies": {
+    "@babel/core": "^7.19.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.0.3",
