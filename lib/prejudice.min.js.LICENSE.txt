@@ -1,0 +1,7 @@
+/*!
+  * Reqwest! A general purpose XHR connection manager
+  * license MIT (c) Dustin Diaz 2015
+  * https://github.com/ded/reqwest
+  */
+
+/*! idleTimeout v2.0.0 | Copyright (c) 2016-2019 Jacob Müller */
