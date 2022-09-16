@@ -4,9 +4,10 @@
   "description": "Produce universal library with webpack and es6",
   "main": "lib/prejudice.js",
   "scripts": {
-    "build": "npm run build:prod && npm run build:dev",
+    "build": "npm run lint -- --fix && npm run build:prod",
     "build:dev": "webpack --mode=development --progress --color --watch --env dev",
     "build:prod": "webpack --mode=production --env build",
+    "lint": "npx eslint $* src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
