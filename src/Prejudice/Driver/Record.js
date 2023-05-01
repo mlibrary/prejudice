@@ -1,10 +1,10 @@
 class Record {
-  constructor() {
+  constructor () {
     this.engine = null;
     this.registerEngine = this.registerEngine.bind(this);
   }
 
-  registerEngine(engine) {
+  registerEngine (engine) {
     this.engine = engine;
   }
 }

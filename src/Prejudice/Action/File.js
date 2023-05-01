@@ -1,7 +1,7 @@
 import Action from '../Action';
 
 class File extends Action {
-  constructor() {
+  constructor () {
     super();
 
     this.path = 'file';
@@ -14,7 +14,7 @@ class File extends Action {
     this.ensureTarget = this.ensureTarget.bind(this);
   }
 
-  ensureTarget() {
+  ensureTarget () {
     if (global.document.getElementsByName(this.targetName).length > 0) {
       return this;
     }
@@ -27,7 +27,7 @@ class File extends Action {
     return this;
   }
 
-  ensureForm() {
+  ensureForm () {
     if (global.document.getElementById(this.formId)) {
       return this;
     }
@@ -46,23 +46,23 @@ class File extends Action {
     return this;
   }
 
-  setFormInput(data) {
+  setFormInput (data) {
     const input = global.document.getElementById(this.formId).children[0];
 
     input.name = JSON.stringify(data).slice(0, -1) + ',"_":"';
     input.value = '"}';
   }
 
-  submitForm() {
+  submitForm () {
     global.document.getElementById(this.formId).submit();
   }
 
-  apply(data, callback) {
+  apply (data, callback) {
     this.ensureTarget();
     this.ensureForm();
     this.setFormInput(data);
     this.submitForm();
-    callback({status: 'Success'});
+    callback(null, { status: 'Success' });
   }
 };
 

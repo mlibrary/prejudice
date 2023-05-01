@@ -1,7 +1,7 @@
 import Action from '../Action';
 
 class UnTag extends Action {
-  constructor() {
+  constructor () {
     super();
     this.path = 'untag';
   }

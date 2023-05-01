@@ -1,7 +1,7 @@
 import Action from '../Action';
 
 class Text extends Action {
-  constructor() {
+  constructor () {
     super();
     this.path = 'text';
   }

@@ -1,7 +1,7 @@
 import { VariableStorageDriver } from './VariableStorageDriver';
 
 class PersistantStorageDriver extends VariableStorageDriver {
-  constructor(storage, key) {
+  constructor (storage, key) {
     super();
     this.key = key;
     this.storage = storage;
@@ -20,11 +20,11 @@ class PersistantStorageDriver extends VariableStorageDriver {
     this.write = this.write.bind(this);
   }
 
-  getInstance() {
+  getInstance () {
     return this;
   }
 
-  read() {
+  read () {
     try {
       this.records = JSON.parse(this.storage.getItem(this.key)) || {};
     } catch (e) {
@@ -33,12 +33,12 @@ class PersistantStorageDriver extends VariableStorageDriver {
     return this;
   }
 
-  write() {
+  write () {
     this.storage.setItem(this.key, JSON.stringify(this.records));
     return this;
   }
 
-  add(record) {
+  add (record) {
     if (super.add(record)) {
       this.write();
       return true;
@@ -46,7 +46,7 @@ class PersistantStorageDriver extends VariableStorageDriver {
     return false;
   }
 
-  remove(record) {
+  remove (record) {
     if (super.remove(record)) {
       this.write();
       return true;
@@ -54,7 +54,7 @@ class PersistantStorageDriver extends VariableStorageDriver {
     return false;
   }
 
-  clear(datastore) {
+  clear (datastore) {
     if (super.clear(datastore)) {
       this.write();
       return true;

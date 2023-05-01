@@ -1,18 +1,18 @@
 import Record from '../Record';
 
 class Pride extends Record {
-  constructor() {
+  constructor () {
     super();
 
     this.dataToRecord = this.dataToRecord.bind(this);
     this.match = this.match.bind(this);
   }
 
-  match(data) {
+  match (data) {
     return data instanceof this.engine.Core.Record;
   }
 
-  dataToRecord(data) {
+  dataToRecord (data) {
     return data;
   }
 }

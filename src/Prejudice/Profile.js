@@ -2,8 +2,7 @@ import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
 
 class Profile {
-
-  constructor() {
+  constructor () {
     this.last = {};
     this.baseUrl = null;
     this.observers = [];
@@ -21,11 +20,11 @@ class Profile {
     this.getInstance = this.getInstance.bind(this);
   }
 
-  getInstance() {
+  getInstance () {
     return this;
   }
 
-  setInterval() {
+  setInterval () {
     if (this.interval) {
       return this;
     }
@@ -37,7 +36,7 @@ class Profile {
     return this;
   }
 
-  notifyObservers() {
+  notifyObservers () {
     this.observers.forEach(function (observer) {
       if (typeof observer === 'function') {
         observer(this.last);
@@ -45,7 +44,7 @@ class Profile {
     }, this);
   }
 
-  update() {
+  update () {
     if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
       this.idleDetection.setIdleTimer();
       return this;
@@ -70,7 +69,7 @@ class Profile {
     return this;
   }
 
-  handleData(data) {
+  handleData (data) {
     if (JSON.stringify(this.last) !== JSON.stringify(data)) {
       this.last = data;
       this.notifyObservers();
@@ -78,21 +77,21 @@ class Profile {
     return this;
   }
 
-  getUrl() {
+  getUrl () {
     if (this.baseUrl) {
       return [this.baseUrl, 'profile'].join('/');
     }
     return null;
   }
 
-  addObserver(observer) {
+  addObserver (observer) {
     observer(this.last);
     this.observers.push(observer);
     this.startup();
     return this;
   }
 
-  startup() {
+  startup () {
     if (!this.interval && this.baseUrl && this.observers.length > 0) {
       this.last = {};
       this.idleDetection.setIdleTimer();
@@ -102,7 +101,7 @@ class Profile {
     return this;
   }
 
-  registerBaseUrl(baseUrl) {
+  registerBaseUrl (baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();
     return this;

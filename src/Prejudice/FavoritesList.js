@@ -2,8 +2,7 @@ import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
 
 class FavoritesList {
-
-  constructor() {
+  constructor () {
     this.last = [];
     this.baseUrl = null;
     this.observers = [];
@@ -25,11 +24,11 @@ class FavoritesList {
     this.removeTag = this.removeTag.bind(this);
   }
 
-  getInstance() {
+  getInstance () {
     return this;
   }
 
-  setInterval() {
+  setInterval () {
     if (this.interval) {
       return this;
     }
@@ -41,7 +40,7 @@ class FavoritesList {
     return this;
   }
 
-  notifyObservers() {
+  notifyObservers () {
     this.observers.forEach(function (observer) {
       if (typeof observer === 'function') {
         observer(this.last);
@@ -49,7 +48,7 @@ class FavoritesList {
     }, this);
   }
 
-  update() {
+  update () {
     if (this.idleDetection.idleTimer && this.idleDetection.idleTimer.isIdle) {
       this.idleDetection.setIdleTimer();
       return this;
@@ -74,7 +73,7 @@ class FavoritesList {
     return this;
   }
 
-  handleData(data) {
+  handleData (data) {
     if (JSON.stringify(this.last) !== JSON.stringify(data)) {
       this.last = data;
       this.notifyObservers();
@@ -82,21 +81,21 @@ class FavoritesList {
     return this;
   }
 
-  getUrl() {
+  getUrl () {
     if (this.baseUrl) {
       return [this.baseUrl, 'profile', 'favorites', 'list'].join('/');
     }
     return null;
   }
 
-  addObserver(observer) {
+  addObserver (observer) {
     observer(this.last);
     this.observers.push(observer);
     this.startup();
     return this;
   }
 
-  startup() {
+  startup () {
     if (!this.interval && this.baseUrl) {
       this.last = [];
       this.idleDetection.setIdleTimer();
@@ -106,13 +105,13 @@ class FavoritesList {
     return this;
   }
 
-  registerBaseUrl(baseUrl) {
+  registerBaseUrl (baseUrl) {
     this.baseUrl = baseUrl;
     this.startup();
     return this;
   }
 
-  favoritedItem(datastore, id, tag) {
+  favoritedItem (datastore, id, tag) {
     const ret = {};
     const baseUrl = 'https://search.lib.umich.edu';
 
@@ -150,14 +149,14 @@ class FavoritesList {
       ret.type = 'website';
     } else {
       ret.id = [id];
-      ret.tags = [ datastore + '-favorite' ];
+      ret.tags = [datastore + '-favorite'];
       ret.type = datastore;
     }
     return ret;
   }
 
-  addFavorite(data) {
-    var dirty = false;
+  addFavorite (data) {
+    let dirty = false;
 
     Object.keys(data).forEach(function (datastore) {
       if (!data[datastore] || !Array.isArray(data[datastore].records)) {
@@ -183,8 +182,8 @@ class FavoritesList {
     return this;
   }
 
-  removeFavorite(data) {
-    var dirty = false;
+  removeFavorite (data) {
+    let dirty = false;
 
     Object.keys(data).forEach(function (datastore) {
       if (!data[datastore] || !Array.isArray(data[datastore].records)) {
@@ -212,9 +211,9 @@ class FavoritesList {
     return this;
   }
 
-  addTag(data) {
+  addTag (data) {
     const tags = Array.isArray(data.to) ? data.to : [data.to];
-    var dirty = false;
+    let dirty = false;
 
     Object.keys(data).forEach(function (datastore) {
       if (!data[datastore] || !Array.isArray(data[datastore].records)) {
@@ -244,9 +243,9 @@ class FavoritesList {
     return this;
   }
 
-  removeTag(data) {
+  removeTag (data) {
     const tags = Array.isArray(data.to) ? data.to : [data.to];
-    var dirty = false;
+    let dirty = false;
 
     Object.keys(data).forEach(function (datastore) {
       if (!data[datastore] || !Array.isArray(data[datastore].records)) {
