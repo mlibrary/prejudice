@@ -3,22 +3,23 @@ Monthly dependency update to help maintain Prejudice.
 
 ## NPM
 These dependencies have been updated to their latest versions:
-- `babel-cli`
-- `babel-core`
-- `babel-eslint`
+- `@babel/cli`
+- `@babel/core`
+- `@babel/eslint-parser`
+- `@babel/preset-env`
 - `babel-loader`
-- `babel-plugin-add-module-exports`
-- `babel-plugin-transform-class-properties`
-- `babel-preset-env`
-- `chai`
 - `eslint`
-- `eslint-loader`
-- `idle-timeout`
-- `mocha`
-- `reqwest`
+- `eslint-config-standard`
+- `eslint-plugin-import`
+- `eslint-plugin-n`
+- `eslint-plugin-promise`
+- `eslint-webpack-plugin`
+- `terser-webpack-plugin`
 - `webpack`
+- `webpack-cli`
+- `idle-timeout`
+- `reqwest`
 - `xhr2`
-- `yargs`
 
 ## Testing
 - Install the updated packages (`npm install`).
