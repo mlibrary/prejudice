@@ -7,13 +7,10 @@ These dependencies have been updated to their latest versions:
 - `@babel/core`
 - `@babel/eslint-parser`
 - `@babel/preset-env`
+- `@eslint/js`
 - `babel-loader`
 - `eslint`
-- `eslint-config-standard`
-- `eslint-plugin-import`
-- `eslint-plugin-n`
-- `eslint-plugin-promise`
-- `eslint-webpack-plugin`
+- `globals`
 - `terser-webpack-plugin`
 - `webpack`
 - `webpack-cli`

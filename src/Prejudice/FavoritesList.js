@@ -111,7 +111,7 @@ class FavoritesList {
     return this;
   }
 
-  favoritedItem (datastore, id, tag) {
+  favoritedItem (datastore, id) {
     const ret = {};
     const baseUrl = 'https://search.lib.umich.edu';
 

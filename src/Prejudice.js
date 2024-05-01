@@ -52,7 +52,7 @@ const Prejudice = class Prejudice {
       init.datastores.forEach(function (datastore) {
         if (datastore.slug && datastore.uid) {
           this.datastores[datastore.uid] = [
-            init.baseUrl || global.window.location.origin,
+            init.baseUrl || window.location.origin,
             datastore.slug,
             'record'
           ].join('/');
