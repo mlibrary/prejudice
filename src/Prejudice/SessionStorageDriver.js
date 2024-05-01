@@ -3,8 +3,8 @@ import PersistantStorageDriver from './PersistantStorageDriver';
 
 let exp = VariableStorageDriver;
 
-if (typeof global.window !== 'undefined') {
-  exp = new PersistantStorageDriver(global.window.sessionStorage, 'Prejudice.sessionStorage');
+if (typeof window !== 'undefined') {
+  exp = new PersistantStorageDriver(window.sessionStorage, 'Prejudice.sessionStorage');
 }
 
 export default exp;

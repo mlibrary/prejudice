@@ -1,5 +1,5 @@
 class Null {
-  match (data) {
+  match () {
     return false;
   }
 
