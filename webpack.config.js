@@ -1,6 +1,5 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 let libraryName = 'prejudice';
 
@@ -32,10 +31,6 @@ module.exports = (env, argv) => {
     optimization: {
       minimize: production,
       minimizer: [new TerserPlugin()],
-    },
-    plugins: [new ESLintPlugin({
-      extensions: ['js', 'jsx'],
-      exclude: ['/node_modules/']
-    })]
+    }
   };
-}
+};

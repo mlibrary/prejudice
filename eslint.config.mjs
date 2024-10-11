@@ -11,6 +11,7 @@ export default [
     }
   },
   {
+    files: ["src/**/*.js"],
     rules: {
       "arrow-body-style": ["error", "always"], // Requires {} in arrow function body
       "arrow-parens": ["error", "always"], // Requires () around arrow function arguments
