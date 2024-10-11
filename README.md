@@ -44,6 +44,35 @@ ES6 source files
 
 * `yarn build` or `npm run build` - produces production version of your library under the `lib` folder
 
+## Testing in Search
+
+1. Clone [mlibrary/search](https://github.com/mlibrary/search).
+    ```bash
+    gh repo clone mlibrary/search
+    ```
+2. Navigate to the repository and open the `package.json` file. Edit the dependency URL for `prejudice` to point to your local `prejudice` repository.
+    ```bash
+    "prejudice": "file:../prejudice",
+    ```
+    Note: If you want to test a specific branch, add `#` followed by the branch name to the end of the URL.
+    ```bash
+    "prejudice": "git+https://github.com/mlibrary/prejudice.git#your-branch-here",
+    ```
+3. Install
+    ```bash
+    npm install
+    ```
+    Note: If this is not a fresh clone, do a clean install.
+    ```bash
+    rm -rf node_modules && package-lock.json && npm install
+    ```
+4. Run locally
+    ```bash
+    npm start
+    ```
+
+While Search is running locally, [the site](http://localhost:3000/) will automatically refresh whenever `lib/prejudice.js` changes.
+
 ## Readings
 
 * [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
