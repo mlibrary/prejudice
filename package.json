@@ -44,7 +44,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "idle-timeout": "^2.1.0",
+    "idle-timeout": "^2.1.1",
     "reqwest": "^2.0.5",
     "xhr2": "^0.2.1"
   }
