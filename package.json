@@ -31,20 +31,20 @@
   },
   "homepage": "https://github.com/krasimir/webpack-library-starter",
   "devDependencies": {
-    "@babel/cli": "^7.28.0",
-    "@babel/core": "^7.28.0",
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.3",
     "@babel/eslint-parser": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@eslint/js": "^9.32.0",
+    "@babel/preset-env": "^7.28.3",
+    "@eslint/js": "^9.34.0",
     "babel-loader": "^10.0.0",
-    "eslint": "^9.32.0",
+    "eslint": "^9.34.0",
     "globals": "^16.3.0",
     "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.101.0",
+    "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "idle-timeout": "^2.1.0",
+    "idle-timeout": "^2.1.1",
     "reqwest": "^2.0.5",
     "xhr2": "^0.2.1"
   }
