@@ -35,12 +35,12 @@
     "@babel/core": "^7.28.5",
     "@babel/eslint-parser": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.2",
     "babel-loader": "^10.0.0",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "globals": "^16.5.0",
-    "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.103.0",
+    "terser-webpack-plugin": "^5.3.16",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
