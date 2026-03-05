@@ -38,13 +38,13 @@
     "@eslint/js": "^9.39.2",
     "babel-loader": "^10.0.0",
     "eslint": "^9.39.2",
-    "globals": "^17.3.0",
+    "globals": "^17.4.0",
     "terser-webpack-plugin": "^5.3.16",
-    "webpack": "^5.104.1",
+    "webpack": "^5.105.3",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "idle-timeout": "^2.3.5",
+    "idle-timeout": "^2.3.6",
     "reqwest": "^2.0.5",
     "xhr2": "^0.2.1"
   }
