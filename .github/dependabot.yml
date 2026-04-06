@@ -9,17 +9,30 @@ multi-ecosystem-groups:
       timezone: "America/Detroit"
     commit-message:
       prefix: "Monthly dependency updates: "
+    assignees: ["erinesullivan"]
 
 
 updates:
-  # For npm dependencies
+  # For npm/JavaScript dependencies
   - package-ecosystem: "npm"
     directory: "/"
-    multi-ecosystem-group: "maintenance"
+    multi-ecosystem-group: "app-dependencies"
     patterns: ["*"]
 
   # For GitHub Actions updates
   - package-ecosystem: "github-actions"
     directory: "/"
-    multi-ecosystem-group: "maintenance"
+    multi-ecosystem-group: "app-dependencies"
+    patterns: ["*"]
+
+  # For Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    multi-ecosystem-group: "container-updates"
+    patterns: ["*"]
+
+  # For Docker Compose
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    multi-ecosystem-group: "container-updates"
     patterns: ["*"]
