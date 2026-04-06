@@ -1,14 +1,14 @@
 version: 2
 
 multi-ecosystem-groups:
-  maintenance:
+  app-dependencies:
     schedule:
-      interval: "monthly"
+      interval: "weekly"
       time: "06:00"
       day: "monday"
       timezone: "America/Detroit"
     commit-message:
-      prefix: "Monthly dependency updates: "
+      prefix: "Weekly dependency updates: "
     assignees: ["erinesullivan"]
 
 
@@ -28,11 +28,11 @@ updates:
   # For Docker
   - package-ecosystem: "docker"
     directory: "/"
-    multi-ecosystem-group: "container-updates"
+    multi-ecosystem-group: "app-dependencies"
     patterns: ["*"]
 
   # For Docker Compose
   - package-ecosystem: "docker-compose"
     directory: "/"
-    multi-ecosystem-group: "container-updates"
+    multi-ecosystem-group: "app-dependencies"
     patterns: ["*"]
