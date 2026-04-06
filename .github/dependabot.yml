@@ -9,6 +9,7 @@ multi-ecosystem-groups:
       timezone: "America/Detroit"
     commit-message:
       prefix: "Monthly dependency updates: "
+    assignees: ["erinesullivan"]
 
 
 updates:
@@ -20,6 +21,12 @@ updates:
 
   # For GitHub Actions updates
   - package-ecosystem: "github-actions"
+    directory: "/"
+    multi-ecosystem-group: "maintenance"
+    patterns: ["*"]
+
+  # For Docker updates
+  - package-ecosystem: "docker"
     directory: "/"
     multi-ecosystem-group: "maintenance"
     patterns: ["*"]
