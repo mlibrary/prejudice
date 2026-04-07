@@ -225,13 +225,13 @@ class FavoritesList {
           return element.id[0] === record.id[0];
         });
 
-        if (!existing) {
+        if (existing) {
+          dirty = true;
+          existing.tags = (existing.tags || []).concat(tags);
+        } else {
           dirty = true;
           record.tags = tags;
           this.last.push(record);
-        } else {
-          dirty = true;
-          existing.tags = (existing.tags || []).concat(tags);
         }
       }, this);
     }, this);
