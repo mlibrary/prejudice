@@ -3,13 +3,12 @@ version: 2
 multi-ecosystem-groups:
   app-dependencies:
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       time: "06:00"
       day: "monday"
       timezone: "America/Detroit"
     commit-message:
-      prefix: "Weekly dependency updates: "
-    assignees: ["erinesullivan"]
+      prefix: "Monthly dependency updates: "
 
 
 updates:
