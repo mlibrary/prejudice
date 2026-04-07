@@ -32,16 +32,11 @@
   },
   "homepage": "https://github.com/krasimir/webpack-library-starter",
   "devDependencies": {
-    "@babel/preset-env": "^7.29.2",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "babel-loader": "^10.1.1",
     "esbuild": "^0.28.0",
     "eslint": "^10.2.0",
-    "globals": "^17.4.0",
-    "terser-webpack-plugin": "^5.4.0",
-    "webpack": "^5.105.4",
-    "webpack-cli": "^7.0.2"
+    "globals": "^17.4.0"
   },
   "dependencies": {
     "idle-timeout": "^2.3.6",
