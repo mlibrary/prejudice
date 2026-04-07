@@ -8,7 +8,7 @@
     "build:dev": "npm run build:webpack -- --progress --color --watch",
     "build:prod": "npm run build:webpack -- --mode=production --env=build",
     "build:webpack": "webpack --mode=${mode:=development} $* --env ${env:=dev}",
-    "lint": "npx eslint eslint.config.mjs src/ $*",
+    "lint": "eslint *.config.*js src/ $*",
     "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
