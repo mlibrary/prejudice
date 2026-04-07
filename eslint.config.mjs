@@ -1,24 +1,38 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
 
 export default [
-  pluginJs.configs.recommended,
+  pluginJs.configs.all,
   {
     languageOptions: {
       globals: {
-        ...globals.browser
+        ...globals.browser,
+        ...globals.node
       }
     }
   },
+  stylistic.configs.recommended,
   {
-    files: ["src/**/*.js"],
+    plugins: {
+      '@stylistic': stylistic
+    },
     rules: {
-      "arrow-body-style": ["error", "always"], // Requires {} in arrow function body
-      "arrow-parens": ["error", "always"], // Requires () around arrow function arguments
-      "brace-style": ["error", "1tbs"], // Requires one true brace style
-      "no-empty-function": "error", // Require an empty function to at least have a comment explaining why
-      "no-var": "error", // Discourages using `var` and recommends using `let` or `const` instead
-      "semi": ["error", "always"] // Requires a semicolon wherever necessary
+      '@stylistic/brace-style': ['error', '1tbs'],
+      '@stylistic/comma-dangle': ['error', 'never'],
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/operator-linebreak': ['error', 'before'],
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/space-before-function-paren': ['error', 'always'],
+      '@stylistic/spaced-comment': ['error', 'always', { block: { balanced: true } }],
+      'arrow-body-style': ['error', 'always'],
+      'max-lines-per-function': 'off',
+      'max-statements': 'off',
+      'no-magic-numbers': 'off',
+      'no-ternary': 'off',
+      'one-var': ['error', { initialized: 'never' }],
+      'sort-imports': ['error', { ignoreCase: true }]
     }
   }
 ];
