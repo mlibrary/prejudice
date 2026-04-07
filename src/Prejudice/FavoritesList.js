@@ -1,5 +1,5 @@
-import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
+import reqwest from 'reqwest';
 
 class FavoritesList {
   constructor () {
