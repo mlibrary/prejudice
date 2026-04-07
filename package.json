@@ -9,7 +9,7 @@
     "build:prod": "npm run build:webpack -- --mode=production --env=build",
     "build:webpack": "webpack --mode=${mode:=development} $* --env ${env:=dev}",
     "lint": "npx eslint src $*",
-    "lint:fix": "npx eslint src $*",
+    "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -36,6 +36,7 @@
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "babel-loader": "^10.1.1",
+    "esbuild": "^0.28.0",
     "eslint": "^10.2.0",
     "globals": "^17.4.0",
     "terser-webpack-plugin": "^5.4.0",
