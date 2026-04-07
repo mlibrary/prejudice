@@ -39,7 +39,7 @@ class VariableStorageDriver {
     const idx = this.findIndex(record);
 
     if (idx === -1) {
-      this.records[record.datastore] = this.records[record.datastore] || [];
+      this.records[record.datastore] ||= [];
       this.records[record.datastore].push(record);
       this.notifyObservers();
       return true;
