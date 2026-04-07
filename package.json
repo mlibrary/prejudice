@@ -2,12 +2,12 @@
   "name": "prejudice",
   "version": "1.0.2",
   "description": "Produce universal library with webpack and es6",
-  "main": "lib/prejudice.min.js",
+  "main": "lib/prejudice.js",
   "scripts": {
-    "build": "npm run build:prod",
-    "build:dev": "npm run build:esbuild -- --outfile=lib/prejudice.js --watch",
-    "build:esbuild": "esbuild src/Prejudice.js --bundle --sourcemap --platform=browser --format=iife --global-name=prejudice",
-    "build:prod": "npm run build:esbuild -- --minify --outfile=lib/prejudice.min.js",
+    "build": "npm run build:webpack && npm run build:prod",
+    "build:dev": "npm run build:webpack -- --progress --color --watch",
+    "build:prod": "npm run build:webpack -- --mode=production --env=build",
+    "build:webpack": "webpack --mode=${mode:=development} $* --env ${env:=dev}",
     "lint": "npx eslint eslint.config.mjs src/ $*",
     "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,11 +32,15 @@
   },
   "homepage": "https://github.com/krasimir/webpack-library-starter",
   "devDependencies": {
+    "@babel/preset-env": "^7.29.2",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "esbuild": "^0.28.0",
+    "babel-loader": "^10.1.1",
     "eslint": "^10.2.0",
-    "globals": "^17.4.0"
+    "globals": "^17.4.0",
+    "terser-webpack-plugin": "^5.4.0",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2"
   },
   "dependencies": {
     "idle-timeout": "^2.3.6",
