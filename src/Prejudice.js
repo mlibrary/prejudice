@@ -1,5 +1,3 @@
-'use strict';
-
 import SessionStorageDriver from './Prejudice/SessionStorageDriver';
 import LocalStorageDriver from './Prejudice/LocalStorageDriver';
 import VariableStorageDriver from './Prejudice/VariableStorageDriver';

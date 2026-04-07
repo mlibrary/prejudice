@@ -17,7 +17,7 @@ const Action = class Action {
 
   apply (data, callback) {
     this.observers.forEach(
-      function (observer) {
+      (observer) => {
         if (typeof observer === 'function') {
           observer(data);
         }

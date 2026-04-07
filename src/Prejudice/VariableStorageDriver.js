@@ -51,7 +51,7 @@ class VariableStorageDriver {
     if (!this.records[record.datastore]) {
       return -1;
     }
-    return this.records[record.datastore].findIndex(function (item) {
+    return this.records[record.datastore].findIndex((item) => {
       return item.datastore === record.datastore && item.uid === record.uid;
     });
   }

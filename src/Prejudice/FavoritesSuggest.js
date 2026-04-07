@@ -117,12 +117,12 @@ class FavoritesSuggest {
     }
 
     tags.forEach(function (tag) {
-      if (this.last.recent.find(function (element) {
+      if (this.last.recent.find((element) => {
         return element === tag;
       })) {
         return this;
       }
-      if (this.last.courses.find(function (element) {
+      if (this.last.courses.find((element) => {
         return element === tag;
       })) {
         return this;
