@@ -4,11 +4,11 @@
   "description": "Produce universal library with webpack and es6",
   "main": "lib/prejudice.js",
   "scripts": {
-    "build": "npm run build:webpack && npm run build:prod",
-    "build:dev": "npm run build:webpack -- --progress --color --watch",
-    "build:prod": "npm run build:webpack -- --mode=production --env=build",
-    "build:webpack": "webpack --mode=${mode:=development} $* --env ${env:=dev}",
-    "lint": "npx eslint src $*",
+    "build": "npm run build:prod",
+    "build:dev": "npm run build:esbuild -- --outfile=lib/prejudice.js --watch",
+    "build:esbuild": "esbuild src/Prejudice.js --bundle --sourcemap --platform=browser --format=iife --global-name=prejudice",
+    "build:prod": "npm run build:esbuild -- --minify --outfile=lib/prejudice.min.js",
+    "lint": "npx eslint eslint.config.mjs src/ $*",
     "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
