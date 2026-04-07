@@ -8,8 +8,8 @@ class PersistantStorageDriver extends VariableStorageDriver {
     // Read has side effects that modify this.records.
     this.read();
     window.addEventListener('storage', (function (driver) {
-      return function (e) {
-        if (e.storageArea === driver.storage) {
+      return function (event) {
+        if (event.storageArea === driver.storage) {
           driver.read();
           driver.notifyObservers();
         }
