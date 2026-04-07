@@ -2,7 +2,7 @@
   "name": "prejudice",
   "version": "1.0.2",
   "description": "Produce universal library with webpack and es6",
-  "main": "lib/prejudice.js",
+  "main": "lib/prejudice.min.js",
   "scripts": {
     "build": "npm run build:prod",
     "build:dev": "npm run build:esbuild -- --outfile=lib/prejudice.js --watch",
