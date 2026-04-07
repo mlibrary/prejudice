@@ -25,14 +25,14 @@ const Action = class Action {
       this
     );
     reqwest({
-      url: this.getUrl(),
-      data: JSON.stringify(data),
-      type: 'json',
-      method: 'post',
       contentType: 'application/json',
-      withCredentials: true,
+      data: JSON.stringify(data),
       error: callback,
-      success: callback
+      method: 'post',
+      success: callback,
+      type: 'json',
+      url: this.getUrl(),
+      withCredentials: true
     });
     return this;
   }

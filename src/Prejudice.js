@@ -18,9 +18,9 @@ const Prejudice = class Prejudice {
   constructor (init) {
     this.recordStorage = (init.recordStorage || SessionStorageDriver).getInstance();
     this.actions = {
-      text: Text,
       email: Email,
-      file: File
+      file: File,
+      text: Text
     };
     this.datastores = {};
 
@@ -153,13 +153,13 @@ const Prejudice = class Prejudice {
   act (action, datastore, argument, callback) {
     this.actions[action].apply(
       {
-        to: argument,
         [datastore]: {
+          base_url: this.datastores[datastore],
           records: this.listRecords(datastore).map((item) => {
             return item.uid;
-          }),
-          base_url: this.datastores[datastore]
-        }
+          })
+        },
+        to: argument
       },
       callback
     );
