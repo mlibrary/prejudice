@@ -1,5 +1,5 @@
-import VariableStorageDriver from './VariableStorageDriver';
 import PersistantStorageDriver from './PersistantStorageDriver';
+import VariableStorageDriver from './VariableStorageDriver';
 
 let exp = VariableStorageDriver;
 

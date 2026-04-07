@@ -39,7 +39,7 @@ class VariableStorageDriver {
     const idx = this.findIndex(record);
 
     if (idx === -1) {
-      this.records[record.datastore] = this.records[record.datastore] || [];
+      this.records[record.datastore] ||= [];
       this.records[record.datastore].push(record);
       this.notifyObservers();
       return true;
@@ -51,7 +51,7 @@ class VariableStorageDriver {
     if (!this.records[record.datastore]) {
       return -1;
     }
-    return this.records[record.datastore].findIndex(function (item) {
+    return this.records[record.datastore].findIndex((item) => {
       return item.datastore === record.datastore && item.uid === record.uid;
     });
   }

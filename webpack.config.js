@@ -1,36 +1,36 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
-let libraryName = 'prejudice';
+const libraryName = 'prejudice';
 
 module.exports = (env, argv) => {
   const production = argv.mode === 'production';
   return {
-    entry: `${__dirname}/src/Prejudice.js`,
     devtool: 'source-map',
-    output: {
-      path: `${__dirname}/lib`,
-      filename: `${libraryName}${production ? '.min.js' : '.js'}`,
-      library: libraryName,
-      libraryTarget: 'umd',
-      umdNamedDefine: true
-    },
+    entry: `${__dirname}/src/Prejudice.js`,
     module: {
       rules: [
         {
-          test: /(\.jsx|\.js)$/,
+          exclude: /(?:node_modules|bower_components)/u,
           loader: 'babel-loader',
-          exclude: /(node_modules|bower_components)/
+          test: /(?:\.jsx|\.js)$/u
         }
       ]
     },
-    resolve: {
-      modules: [path.resolve('./node_modules'), path.resolve('./src')],
-      extensions: ['.json', '.js']
-    },
     optimization: {
       minimize: production,
-      minimizer: [new TerserPlugin()],
+      minimizer: [new TerserPlugin()]
+    },
+    output: {
+      filename: `${libraryName}${production ? '.min.js' : '.js'}`,
+      library: libraryName,
+      libraryTarget: 'umd',
+      path: `${__dirname}/lib`,
+      umdNamedDefine: true
+    },
+    resolve: {
+      extensions: ['.json', '.js'],
+      modules: [path.resolve('./node_modules'), path.resolve('./src')]
     }
   };
 };

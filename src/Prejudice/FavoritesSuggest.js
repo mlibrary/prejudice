@@ -1,5 +1,5 @@
-import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
+import reqwest from 'reqwest';
 
 class FavoritesSuggest {
   constructor () {
@@ -58,13 +58,13 @@ class FavoritesSuggest {
       })(this);
 
       reqwest({
-        url: this.getUrl(),
-        type: 'json',
-        method: 'get',
         contentType: 'application/json',
-        withCredentials: true,
         error: callback,
-        success: callback
+        method: 'get',
+        success: callback,
+        type: 'json',
+        url: this.getUrl(),
+        withCredentials: true
       });
     }
     return this;
@@ -117,12 +117,12 @@ class FavoritesSuggest {
     }
 
     tags.forEach(function (tag) {
-      if (this.last.recent.find(function (element) {
+      if (this.last.recent.find((element) => {
         return element === tag;
       })) {
         return this;
       }
-      if (this.last.courses.find(function (element) {
+      if (this.last.courses.find((element) => {
         return element === tag;
       })) {
         return this;

@@ -1,5 +1,5 @@
-import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
+import reqwest from 'reqwest';
 
 class Profile {
   constructor () {
@@ -57,13 +57,13 @@ class Profile {
       })(this);
 
       reqwest({
-        url: this.getUrl(),
-        type: 'json',
-        method: 'get',
         contentType: 'application/json',
-        withCredentials: true,
         error: callback,
-        success: callback
+        method: 'get',
+        success: callback,
+        type: 'json',
+        url: this.getUrl(),
+        withCredentials: true
       });
     }
     return this;

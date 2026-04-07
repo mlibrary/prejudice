@@ -47,9 +47,9 @@ class File extends Action {
   }
 
   setFormInput (data) {
-    const input = document.getElementById(this.formId).children[0];
+    const [input] = document.getElementById(this.formId).children;
 
-    input.name = JSON.stringify(data).slice(0, -1) + ',"_":"';
+    input.name = `${JSON.stringify(data).slice(0, -1)},"_":"`;
     input.value = '"}';
   }
 

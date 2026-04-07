@@ -1,5 +1,5 @@
-import reqwest from 'reqwest';
 import IdleTimeout from './IdleTimeout';
+import reqwest from 'reqwest';
 
 class FavoritesList {
   constructor () {
@@ -61,13 +61,13 @@ class FavoritesList {
       })(this);
 
       reqwest({
-        url: this.getUrl(),
-        type: 'json',
-        method: 'get',
         contentType: 'application/json',
-        withCredentials: true,
         error: callback,
-        success: callback
+        method: 'get',
+        success: callback,
+        type: 'json',
+        url: this.getUrl(),
+        withCredentials: true
       });
     }
     return this;
@@ -117,28 +117,28 @@ class FavoritesList {
 
     if (datastore === 'mirlyn') {
       ret.id = [
-        'http://mirlyn.lib.umich.edu/Record/' + id,
+        `http://mirlyn.lib.umich.edu/Record/${id}`,
         `${baseUrl}/catalog/record/${id}`
       ];
       ret.tags = ['mirlyn-favorite'];
       ret.type = 'mirlyn';
     } else if (datastore === 'articles') {
       ret.id = [
-        'http://www.lib.umich.edu/articles/details/' + id,
+        `http://www.lib.umich.edu/articles/details/${id}`,
         `${baseUrl}/articles/record/${id}`
       ];
       ret.tags = ['articles-favorite'];
       ret.type = 'article';
     } else if (datastore === 'databases') {
       ret.id = [
-        'http://www.lib.umich.edu/node/' + id,
+        `http://www.lib.umich.edu/node/${id}`,
         `${baseUrl}/databases/record/${id}`
       ];
       ret.tags = ['databases-favorite'];
       ret.type = 'database';
     } else if (datastore === 'onlinejournals') {
       ret.id = [
-        'http://mirlyn.lib.umich.edu/Record/' + id,
+        `http://mirlyn.lib.umich.edu/Record/${id}`,
         `${baseUrl}/onlinejournals/record/${id}`
       ];
       ret.tags = ['journals-favorite'];
@@ -149,7 +149,7 @@ class FavoritesList {
       ret.type = 'website';
     } else {
       ret.id = [id];
-      ret.tags = [datastore + '-favorite'];
+      ret.tags = [`${datastore}-favorite`];
       ret.type = datastore;
     }
     return ret;
@@ -164,7 +164,7 @@ class FavoritesList {
       }
       (data[datastore].records || []).forEach(function (id) {
         const record = this.favoritedItem(datastore, id);
-        const existing = this.last.find(function (element) {
+        const existing = this.last.find((element) => {
           return element.id[0] === record.id[0];
         });
 
@@ -191,7 +191,7 @@ class FavoritesList {
       }
       (data[datastore].records || []).forEach(function (id) {
         const record = this.favoritedItem(datastore, id);
-        const index = this.last.findIndex(function (element) {
+        const index = this.last.findIndex((element) => {
           return element.id[0] === record.id[0];
         });
 
@@ -221,17 +221,17 @@ class FavoritesList {
       }
       (data[datastore].records || []).forEach(function (id) {
         const record = this.favoritedItem(datastore, id);
-        const existing = this.last.find(function (element) {
+        const existing = this.last.find((element) => {
           return element.id[0] === record.id[0];
         });
 
-        if (!existing) {
+        if (existing) {
+          dirty = true;
+          existing.tags = (existing.tags || []).concat(tags);
+        } else {
           dirty = true;
           record.tags = tags;
           this.last.push(record);
-        } else {
-          dirty = true;
-          existing.tags = (existing.tags || []).concat(tags);
         }
       }, this);
     }, this);
@@ -253,13 +253,13 @@ class FavoritesList {
       }
       (data[datastore].records || []).forEach(function (id) {
         const record = this.favoritedItem(datastore, id);
-        const existing = this.last.find(function (element) {
+        const existing = this.last.find((element) => {
           return element.id[0] === record.id[0];
         });
 
         if (existing) {
-          tags.forEach(function (tag) {
-            const index = existing.tags.findIndex(function (element) {
+          tags.forEach((tag) => {
+            const index = existing.tags.findIndex((element) => {
               return element === tag;
             });
 

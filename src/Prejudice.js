@@ -1,32 +1,26 @@
-'use strict';
-
-import SessionStorageDriver from './Prejudice/SessionStorageDriver';
-import LocalStorageDriver from './Prejudice/LocalStorageDriver';
-import VariableStorageDriver from './Prejudice/VariableStorageDriver';
-
 import Action from './Prejudice/Action';
-import Text from './Prejudice/Action/Text';
+import Driver from './Prejudice/Driver';
 import Email from './Prejudice/Action/Email';
 import File from './Prejudice/Action/File';
-
-import Driver from './Prejudice/Driver';
-import Record from './Prejudice/Driver/Record';
-import UidHash from './Prejudice/Driver/Record/UidHash';
-import ReactHash from './Prejudice/Driver/Record/ReactHash';
-import Pride from './Prejudice/Driver/Record/Pride';
-import Null from './Prejudice/Driver/Record/Null';
-
-import Profile from './Prejudice/Profile';
-
 import IdleTimeout from './Prejudice/IdleTimeout';
+import LocalStorageDriver from './Prejudice/LocalStorageDriver';
+import Null from './Prejudice/Driver/Record/Null';
+import Pride from './Prejudice/Driver/Record/Pride';
+import Profile from './Prejudice/Profile';
+import ReactHash from './Prejudice/Driver/Record/ReactHash';
+import Record from './Prejudice/Driver/Record';
+import SessionStorageDriver from './Prejudice/SessionStorageDriver';
+import Text from './Prejudice/Action/Text';
+import UidHash from './Prejudice/Driver/Record/UidHash';
+import VariableStorageDriver from './Prejudice/VariableStorageDriver';
 
 const Prejudice = class Prejudice {
   constructor (init) {
     this.recordStorage = (init.recordStorage || SessionStorageDriver).getInstance();
     this.actions = {
-      text: Text,
       email: Email,
-      file: File
+      file: File,
+      text: Text
     };
     this.datastores = {};
 
@@ -159,13 +153,13 @@ const Prejudice = class Prejudice {
   act (action, datastore, argument, callback) {
     this.actions[action].apply(
       {
-        to: argument,
         [datastore]: {
+          base_url: this.datastores[datastore],
           records: this.listRecords(datastore).map((item) => {
             return item.uid;
-          }),
-          base_url: this.datastores[datastore]
-        }
+          })
+        },
+        to: argument
       },
       callback
     );
