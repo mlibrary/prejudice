@@ -32,18 +32,18 @@
   },
   "homepage": "https://github.com/mlibrary/prejudice#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-env": "^7.29.3",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "babel-loader": "^10.1.1",
-    "eslint": "^10.2.0",
+    "eslint": "^10.2.1",
     "globals": "^17.5.0",
-    "terser-webpack-plugin": "^5.4.0",
-    "webpack": "^5.106.1",
+    "terser-webpack-plugin": "^5.5.0",
+    "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
   },
   "dependencies": {
-    "idle-timeout": "^2.3.6",
+    "idle-timeout": "^2.3.7",
     "reqwest": "^2.0.5",
     "xhr2": "^0.2.1"
   }
