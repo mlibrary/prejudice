@@ -15,7 +15,8 @@ class VariableStorageDriver {
   }
 
   getInstance () {
-    return new this.constructor();
+    const Constructor = this.constructor;
+    return new Constructor();
   }
 
   notifyObservers () {
